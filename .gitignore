@@ -1,2 +1,8 @@
-distribution
-/resources
+.bin
+.DS_Store
+/lib/controlP5/javadoc
+/lib/controlP5/src
+.project
+.classpath
+/bin
+/.settings
