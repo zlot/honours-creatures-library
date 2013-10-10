@@ -34,19 +34,19 @@ public class VirusBody extends Body {
 	}
 
 	@Override
-	protected void createBody() {
-		bodyPShape = p.createShape();
-		bodyPShape.beginShape();
-		bodyPShape.fill(color);
-		bodyPShape.stroke(0);
-		bodyPShape.strokeWeight(2);
+	protected PShape createBody() {
+		PShape _bodyPShape = p.createShape();
+		_bodyPShape.beginShape();
+		_bodyPShape.fill(color);
+		_bodyPShape.stroke(0);
+		_bodyPShape.strokeWeight(2);
 	    for (float a = 0; a < p.TWO_PI; a+=0.2) {
 	      PVector v = PVector.fromAngle(a);
 	      v.mult(width/2);
-	      bodyPShape.vertex(v.x, v.y);
+	      _bodyPShape.vertex(v.x, v.y);
 	    }
-	    bodyPShape.endShape(p.CLOSE);
-	    
+	    _bodyPShape.endShape(p.CLOSE);
+	    return _bodyPShape;
 	}
 
 

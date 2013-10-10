@@ -1,5 +1,6 @@
 package creature.squarething;
 
+import processing.core.PShape;
 import processing.core.PVector;
 import creature.Body;
 import creature.Creature;
@@ -27,9 +28,9 @@ public class SquareThingBody extends Body {
 	}
 
 	@Override
-	protected void createBody() {
+	protected PShape createBody() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

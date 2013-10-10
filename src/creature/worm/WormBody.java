@@ -56,9 +56,9 @@ public class WormBody extends Body {
 	}
 
 	@Override
-	protected void createBody() {
+	protected PShape createBody() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

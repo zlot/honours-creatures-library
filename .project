@@ -16,7 +16,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/honours-creatures-library ant.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/honours-creatures-library build.xml [Builder].launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>

@@ -43,7 +43,7 @@ public abstract class Creature extends PClass {
 		body = _body;
 		// recreate PShapeBody, after all body fields are restored.
 		// note, must be a cleaner way to do this.
-		body.createBody();
+		body.bodyPShape = body.createBody();
 		
 		// re-establish limbs to attach to new body.
 		limbManager.getLimbs().clear();

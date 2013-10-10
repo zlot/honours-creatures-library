@@ -1,5 +1,6 @@
 package creature.millipede;
 
+import processing.core.PShape;
 import processing.core.PVector;
 import creature.Body;
 import creature.Creature;
@@ -19,17 +20,17 @@ public class MillipedeBody extends Body {
 	@Override
 	public void draw() {
 		p.pushStyle();
-			p.rectMode(p.CENTER);
-			p.noStroke();
-			p.fill(color);
-			p.rect(0,0,width,height);
+			p.shape(bodyPShape);
+			
 		p.popStyle();
 	}
 
 	@Override
-	protected void createBody() {
-		// TODO Auto-generated method stub
-		
+	protected PShape createBody() {
+//		PShape bodyPShape = p.createShape(p.RECT, 0, 0, width, height);
+//		PShape bodyPShape = p.createShape(p.ELLIPSE, 0, 0, width, height);
+		bodyPShape.setFill(0xea00aa22);
+		return bodyPShape;
 	}
 
 

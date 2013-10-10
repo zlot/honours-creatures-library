@@ -43,9 +43,9 @@ public class World extends PClass {
 		
 //	 	populationDirector.addCreatures(SquareThing.class, 25);
 		
-//	 	populationDirector.addCreatures(Millipede.class, 6);
+//	 	populationDirector.addCreatures(Millipede.class, 14);
 	 	
-	 	populationDirector.addCreatures(Bacteria.class, 12);
+	 	populationDirector.addCreatures(Bacteria.class, 1);
 //	 	populationDirector.addCreatures(Worm.class, 16);
 	 	
 	}

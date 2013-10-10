@@ -8,22 +8,19 @@ import creature.Body;
 import creature.Creature;
 
 public class BacteriaBody extends Body {
-	
 
-	
-	
 	public BacteriaBody() {
 		super();
-		setColor(0xea00aa22);
+//		setColor(0xea00aa22);
 
 	}
 	
 	public BacteriaBody(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos, _width, _height);
-		setColor(0xea00aa22);
+//		setColor(0xea00aa22);
 	}
 	
-	public void createBody() {
+	public PShape createBody() {
 	    // The "original" locations of the vertices make up a circle
 		vertices = new ArrayList<PVector>();
 	    for (float a = 0; a < p.TWO_PI; a+=0.2) {
@@ -33,25 +30,24 @@ public class BacteriaBody extends Body {
 	    }	    
 	    
 	    // Now make the PShape with those vertices
-      	bodyPShape = p.createShape();
-      	bodyPShape.beginShape();
-      	bodyPShape.fill(34,160,200);
-      	bodyPShape.stroke(0);
-      	bodyPShape.strokeWeight(2);
+      	PShape _bodyPShape = p.createShape();
+      	_bodyPShape.beginShape();
+      	_bodyPShape.fill(34,160,200);
+      	_bodyPShape.stroke(0);
+      	_bodyPShape.strokeWeight(2);
 ////////////////////////////////////
-      	bodyPShape.curveDetail(12); // default is 20 (from processing javadoc)
+      	_bodyPShape.curveDetail(12); // default is 20 (from processing javadoc)
       	
       	
 		for(int i=0;i<4;i++)
 			wiggle();
       	
-      	
 	    for (PVector v : vertices) {
-////////////////////////////////////
-	    	bodyPShape.curveVertex(v.x, v.y);
+	    	_bodyPShape.curveVertex(v.x, v.y);
 	    }
-	    bodyPShape.endShape(p.CLOSE);
-      
+	    _bodyPShape.endShape(p.CLOSE);
+	    
+	    return _bodyPShape;
 	}
 
 	@Override
@@ -59,7 +55,7 @@ public class BacteriaBody extends Body {
 		p.pushStyle();
 //			p.rectMode(p.CENTER);
 			p.noStroke();
-			p.fill(0xffee33ee); // color
+//			p.fill(0xffee33ee); // color
 			p.shape(bodyPShape);
 //			p.rect(0,0,width,height);
 		p.popStyle();

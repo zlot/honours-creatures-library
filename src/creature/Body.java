@@ -28,7 +28,12 @@ public abstract class Body extends Part {
 		width = _width;
 		height = _height;
 		setAABB(_width, _height);
-		createBody();
+		
+		bodyPShape = createBody();
+		
+		assert(bodyPShape != null) : "You have not correctly initialised and returned "
+				+ "a bodyPShape in createBody()! To create a simple shape, e.g. an ellipse, use "
+				+ "createShape(ELLIPSE, 0, 0, width, height)";
 	}
 	
 	public abstract void draw();
@@ -53,7 +58,13 @@ public abstract class Body extends Part {
 	
 ///////////////////////////////////////
 ///////////////MUST IMPLEMENT THIS IN ALL OTHER CREATURES.
-	protected abstract void createBody();
+	/**
+	 * MUST set bodyPShape. How to force this?
+	 * maybe force it to return a bodyPShape, and check if null in contructor?
+	 * 
+	 * Can create simple shapes using the p.createShape(RECT, x, y, width, height) method.
+	 */
+	protected abstract PShape createBody();
 	
 	public PShape getBodyPShape() {
 		return bodyPShape;
