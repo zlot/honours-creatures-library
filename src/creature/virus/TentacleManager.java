@@ -32,7 +32,7 @@ public class TentacleManager extends LimbManager {
 	    
 		ArrayList<PVector> bodyVertices = creature.getBody().getVertices();
 		
-		for(int i=0; i<bodyVertices.size(); i++) {
+		for(int i=0; i<bodyVertices.size(); i+=8) { // every 8th vertice! (arbitrary).
 			// get vertex.
 			PVector v = bodyVertices.get(i);
 			float angleInRadians = v.heading();

@@ -11,16 +11,15 @@ public class BacteriaBody extends Body {
 
 	public BacteriaBody() {
 		super();
-//		setColor(0xea00aa22);
-
 	}
 	
 	public BacteriaBody(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos, _width, _height);
-//		setColor(0xea00aa22);
+		setColor(p.color(34,160,200));
 	}
 	
-	public PShape createBody() {
+	@Override
+	protected synchronized PShape createBody() {
 	    // The "original" locations of the vertices make up a circle
 		vertices = new ArrayList<PVector>();
 	    for (float a = 0; a < p.TWO_PI; a+=0.2) {
@@ -32,12 +31,9 @@ public class BacteriaBody extends Body {
 	    // Now make the PShape with those vertices
       	PShape _bodyPShape = p.createShape();
       	_bodyPShape.beginShape();
-      	_bodyPShape.fill(34,160,200);
       	_bodyPShape.stroke(0);
       	_bodyPShape.strokeWeight(2);
-////////////////////////////////////
       	_bodyPShape.curveDetail(12); // default is 20 (from processing javadoc)
-      	
       	
 		for(int i=0;i<4;i++)
 			wiggle();
@@ -53,18 +49,14 @@ public class BacteriaBody extends Body {
 	@Override
 	public void draw() {
 		p.pushStyle();
-//			p.rectMode(p.CENTER);
 			p.noStroke();
-//			p.fill(0xffee33ee); // color
 			p.shape(bodyPShape);
-//			p.rect(0,0,width,height);
 		p.popStyle();
 	}
 
 
 	  // For 2D Perlin noise
 	  float yoff = 0;
-	  
 
 
 	  void wiggle() {

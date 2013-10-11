@@ -1,10 +1,4 @@
 package main;
-import java.util.List;
-
-import loader.PClass;
-
-
-
 
 import processing.core.*;
 
@@ -46,6 +40,7 @@ public class Main extends PApplet {
 		int height = 900;
 		colorMode(HSB,360,100,100);
 		size(1050,900, P2D);
+		rectMode(CENTER);
 		world = new World(this, width, height);
 
 	}

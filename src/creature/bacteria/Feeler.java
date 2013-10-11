@@ -39,7 +39,6 @@ public class Feeler extends Limb {
 		
 		//		p.rotate(p.radians(p.random(180))); // cool effect.
 		
-		
 		p.pushStyle();
 			p.stroke(color);
 			p.strokeWeight(2);
@@ -57,6 +56,10 @@ public class Feeler extends Limb {
 	@Override
 	public void setColor(int _color) {
 		color = _color;
+	}
+	
+	public void setFeelerLength(float length) {
+		width = length;
 	}
 
 }

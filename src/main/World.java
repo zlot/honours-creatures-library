@@ -39,11 +39,11 @@ public class World extends PClass {
 		
 		// need a creature factory maybe?
 		// because we need to create each creature AND MAKE SURE a behaviour is attached to its behaviourManager.
-//		populationDirector.addCreatures(Virus.class, 1);
+		populationDirector.addCreatures(Virus.class, 1);
 		
 //	 	populationDirector.addCreatures(SquareThing.class, 25);
 		
-//	 	populationDirector.addCreatures(Millipede.class, 14);
+	 	populationDirector.addCreatures(Millipede.class, 4);
 	 	
 	 	populationDirector.addCreatures(Bacteria.class, 1);
 //	 	populationDirector.addCreatures(Worm.class, 16);
@@ -62,7 +62,7 @@ public class World extends PClass {
 	public void run() {
 		// refresh background
 		p.fill(bgColor);
-		p.rect(0,0,width,height);
+		p.rect(width/2,height/2,width,height);
 		populationDirector.update();
 		
 	}

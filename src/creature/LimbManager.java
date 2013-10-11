@@ -10,7 +10,6 @@ public abstract class LimbManager extends PClass {
 
 	protected Creature creature; // reference to creature that LimbManager belongs to.
 	
-//	protected ArrayList<Limb> limbs = new ArrayList<Limb>();
 	// synchronized. Remember, must also synchronize block iterating over list!
 	protected List<Limb> limbs = Collections.synchronizedList(new ArrayList<Limb>());
 	

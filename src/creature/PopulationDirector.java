@@ -3,7 +3,6 @@ package creature;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
-import creature.millipede.FeelerManager;
 import loader.PClass;
 
 public class PopulationDirector extends PClass {
@@ -42,11 +41,9 @@ public class PopulationDirector extends PClass {
 			for (Entry<Class<? extends Behaviour>, Behaviour> entry : c.getBehaviourManager().getBehaviours().entrySet()) {
 				entry.getValue().update();
 			}
-///////////////////////////////////
-/////////////////////////////////
 
 			if(c.getLimbManager() != null) {
-//					c.getLimbManager().update(); // update limbs. This may or may not do anything
+				c.getLimbManager().update(); // update limbs. This may or may not do anything
 												 // depending on the implementation of the limb.
 			}
 		}

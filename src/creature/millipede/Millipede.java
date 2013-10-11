@@ -30,7 +30,7 @@ public class Millipede extends Creature {
 		body = new MillipedeBody(this, pos, 11, 180);
 		
 		// create feelerManager.
-		limbManager = new FeelerManager(this);
+		limbManager = new creature.bacteria.FeelerManager(this);
 	}
 
 	@Override

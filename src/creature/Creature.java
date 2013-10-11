@@ -1,6 +1,5 @@
 package creature;
 
-import creature.millipede.FeelerManager;
 import processing.core.PVector;
 import loader.PClass;
 
@@ -30,6 +29,8 @@ public abstract class Creature extends PClass {
 	public void setBody(Body _body) {
 		// use prev body to set values of new body.
 		Body prevBody = body;
+		int prevColor = prevBody.color;
+		
 		if(_body.getCreature() == null)
 			_body.setCreature(this);
 		if(_body.getPos() == null)
@@ -49,6 +50,10 @@ public abstract class Creature extends PClass {
 		limbManager.getLimbs().clear();
 		limbManager.createLimbs();
 		
+		// re-establish color on body.
+		body.setColor(prevColor);
+		
+		prevBody = null;
 	}
 	public void setLimbManager(LimbManager _limbManager) {
 		if(_limbManager.getCreature() == null)

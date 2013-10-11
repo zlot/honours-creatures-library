@@ -19,14 +19,14 @@ public class FeelerManager extends LimbManager {
 		// MUST BE SET IF THIS CONSTRUCTOR IS USED.
 		// THIS CONSTRUCTOR MEANT TO BE USED ONLY FOR TWEAK MODE RUNTIME STUFF.
 		super();
-		sineWave = new SineWave(0, p.radians(4), 1, 0);
+		sineWave = new SineWave(0, p.radians(4), 1, p.random(5));
 	}
 	
 	public FeelerManager(Creature _c) {
 		super(_c);
 		createLimbs();
 		
-		sineWave = new SineWave(0, p.radians(4), 1, 0);
+		sineWave = new SineWave(0, p.radians(4), 1, p.random(5));
 	}
 	
 
@@ -43,7 +43,7 @@ public class FeelerManager extends LimbManager {
 		float width = creature.getBody().getWidth();
 		float height = creature.getBody().getHeight();
 		
-		float feelerWidth = width * 0.18f;
+		float feelerWidth = height * 0.18f;
 		
 		ArrayList<PVector> bodyVertices = creature.getBody().getVertices();
 		
