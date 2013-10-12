@@ -45,8 +45,6 @@ public class MillipedeBody extends Body {
 			bodyPShape.vertex(-width/2, i);
 		
 		bodyPShape.endShape(p.CLOSE);
-		
-//		PShape bodyPShape = p.createShape(p.ELLIPSE, 0, 0, width, height);
 		return bodyPShape;
 	}
 

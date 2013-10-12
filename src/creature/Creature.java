@@ -62,6 +62,13 @@ public abstract class Creature extends PClass {
 		limbManager.createLimbs();
 	}
 	
+	public void setLimbManager2(LimbManager _limbManager) {
+		_limbManager.createLimbs();
+		synchronized(limbManager.getLimbs()) {
+			limbManager = _limbManager;
+		}
+	}
+	
 	public void setLimbManager(LimbManager _limbManager) {
 		if(_limbManager.getCreature() == null)
 			_limbManager.setCreature(this);
@@ -102,7 +109,6 @@ public abstract class Creature extends PClass {
 	public PVector getAcceleration() {
 		return acc;
 	}
-	
 	
 	
 	public float getAngle() {

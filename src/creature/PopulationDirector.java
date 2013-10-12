@@ -96,8 +96,10 @@ public class PopulationDirector extends PClass {
 		// for all of these found creatureClass, call setLimbManager(limbManager).
 		for(Creature c : creaturesOfTypeCreatureClass) {
 			try {
-				LimbManager limbManagerInstance = limbManager.newInstance();
-				c.setLimbManager(limbManagerInstance);
+				Class<LimbManager> limbManagerClass = limbManager;
+				Constructor<LimbManager> limbManagerConstructor = limbManagerClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
+				LimbManager limbManagerInstance = limbManagerConstructor.newInstance(c);
+				c.setLimbManager2(limbManagerInstance);
 			} catch (Exception ex) {ex.printStackTrace();}
 		}	
 	}
