@@ -56,7 +56,6 @@ public class PopulationDirector extends PClass {
 			}
 		}
 
-		
 		/* Update all creatures */
 		/* Draw all creatures */
 		for(Creature c : creatures) {
@@ -65,7 +64,7 @@ public class PopulationDirector extends PClass {
 		}
 	}
 	
-	public void setBodyForAllCreaturesOfClass(Class<?> creatureClass, Class<?> body) {
+	public void setBodyForAllCreaturesOfClass(Class<Creature> creatureClass, Class<Body> body) {
 		ArrayList<Creature> creaturesOfTypeCreatureClass = new ArrayList<Creature>();
 		// iterate through creatures list: find all creatures of creatureClass.
 		for(Creature c : creatures) {
@@ -77,13 +76,15 @@ public class PopulationDirector extends PClass {
 		// for all of these found creatureClass, call setBody(body).
 		for(Creature c : creaturesOfTypeCreatureClass) {
 			try {
-				Body bodyInstance = (Body) body.newInstance();
+				Class<Body> bodyClass = body;
+				Constructor<Body> bodyConstructor = bodyClass.getDeclaredConstructor(new Class[] {creature.Creature.class, processing.core.PVector.class, float.class, float.class});
+				Body bodyInstance = bodyConstructor.newInstance(c, c.getPos(), c.getBody().getWidth(), c.getBody().getHeight());
 				c.setBody(bodyInstance);
 			} catch (Exception ex) {ex.printStackTrace();}
 		}
 	}
 	
-	public void setLimbManagerForAllCreaturesOfClass(Class<?> creatureClass, Class<?> limbManager) {
+	public void setLimbManagerForAllCreaturesOfClass(Class<Creature> creatureClass, Class<LimbManager> limbManager) {
 		ArrayList<Creature> creaturesOfTypeCreatureClass = new ArrayList<Creature>();
 		// iterate through creatures list: find all creatures of creatureClass.
 		for(Creature c : creatures) {
@@ -95,13 +96,13 @@ public class PopulationDirector extends PClass {
 		// for all of these found creatureClass, call setLimbManager(limbManager).
 		for(Creature c : creaturesOfTypeCreatureClass) {
 			try {
-				LimbManager limbManagerInstance = (LimbManager) limbManager.newInstance();
+				LimbManager limbManagerInstance = limbManager.newInstance();
 				c.setLimbManager(limbManagerInstance);
 			} catch (Exception ex) {ex.printStackTrace();}
 		}	
 	}
 	
-	public void addBehaviourForAllCreaturesOfClass(Class<?> creatureClass, Class<?> behaviour) {
+	public void addBehaviourForAllCreaturesOfClass(Class<Creature> creatureClass, Class<Behaviour> behaviour) {
 		ArrayList<Creature> creaturesOfTypeCreatureClass = new ArrayList<Creature>();
 		// iterate through creatures list: find all creatures of creatureClass.
 		for(Creature c : creatures) {
@@ -113,16 +114,15 @@ public class PopulationDirector extends PClass {
 		// for all of these found creatureClass, call addBehaviour(b).
 		for(Creature c : creaturesOfTypeCreatureClass) {
 			try {
-				Class<Behaviour> behaviourClass = (Class<Behaviour>) behaviour;
+				Class<Behaviour> behaviourClass = behaviour;
 				Constructor<Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
-				behaviourConstructor.setAccessible(true); // use reflection to get access to this private constructor
 				Behaviour behaviourInstance = behaviourConstructor.newInstance(c);
 				c.addBehaviour(behaviourInstance);
 			} catch (Exception ex) {ex.printStackTrace();}
 		}	
 		
 	}
-	public void removeBehaviourForAllCreaturesOfClass(Class<?> creatureClass, Class<?> behaviour) {
+	public void removeBehaviourForAllCreaturesOfClass(Class<Creature> creatureClass, Class<Behaviour> behaviour) {
 		ArrayList<Creature> creaturesOfTypeCreatureClass = new ArrayList<Creature>();
 		// iterate through creatures list: find all creatures of creatureClass.
 		for(Creature c : creatures) {
@@ -139,9 +139,8 @@ public class PopulationDirector extends PClass {
 		// for all of these found creatureClass, call removeBehaviour(b).
 		for(Creature c : creaturesOfTypeCreatureClass) {
 			try {
-				Class<Behaviour> behaviourClass = (Class<Behaviour>) behaviour;
+				Class<Behaviour> behaviourClass = behaviour;
 				Constructor<Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
-				behaviourConstructor.setAccessible(true); // use reflection to get access to this private constructor
 				Behaviour behaviourInstance = behaviourConstructor.newInstance(c);
 				c.removeBehaviour(behaviourInstance);
 			} catch (Exception ex) {ex.printStackTrace();}

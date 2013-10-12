@@ -56,34 +56,12 @@ public abstract class Creature extends PClass {
 	}
 	
 	public void setBody(Body _body) {
-		// use prev body to set values of new body.
-		Body prevBody = body;
-		int prevColor = prevBody.color;
-		
-		if(_body.getCreature() == null)
-			_body.setCreature(this);
-		if(_body.getPos() == null)
-			_body.pos = pos;
-		if(_body.getWidth() == -1)
-			_body.setWidth(prevBody.width);
-		if(_body.getHeight() == -1)
-			_body.setHeight(prevBody.height);
-		
-		// set new body.
 		body = _body;
-		// recreate PShapeBody, after all body fields are restored.
-		// note, must be a cleaner way to do this.
-		body.bodyPShape = body.createBody();
-		
 		// re-establish limbs to attach to new body.
 		limbManager.getLimbs().clear();
 		limbManager.createLimbs();
-		
-		// re-establish color on body.
-		body.setColor(prevColor);
-		
-		prevBody = null;
 	}
+	
 	public void setLimbManager(LimbManager _limbManager) {
 		if(_limbManager.getCreature() == null)
 			_limbManager.setCreature(this);

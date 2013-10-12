@@ -30,11 +30,17 @@ public abstract class Body extends Part {
 		height = _height;
 		setAABB(_width, _height);
 		
-		bodyPShape = createBody();
+		setBodyPShape(createBody());
 		
 		assert(bodyPShape != null) : "You have not correctly initialised and returned "
 				+ "a bodyPShape in createBody()! To create a simple shape, e.g. an ellipse, use "
 				+ "createShape(ELLIPSE, 0, 0, width, height)";
+		
+		if(vertices.isEmpty()) {
+			// fill vertices with bodyPShape vertices.
+			for(int i=0;i<bodyPShape.getVertexCount();i++)
+				vertices.add(bodyPShape.getVertex(i));
+		}
 	}
 	
 	public abstract void draw();
@@ -69,6 +75,9 @@ public abstract class Body extends Part {
 	
 	public PShape getBodyPShape() {
 		return bodyPShape;
+	}
+	private void setBodyPShape(PShape _bodyPShape) {
+		bodyPShape = _bodyPShape;
 	}
 	
 	public void setColor(int color) {
