@@ -9,7 +9,7 @@ public class VirusBody extends Body {
 	
 	public VirusBody(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos, _width, _height);
-		setColor(0xFF007744);
+		setFillColor(0xFF007744);
 	}
 
 	@Override

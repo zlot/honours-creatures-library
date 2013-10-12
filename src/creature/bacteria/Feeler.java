@@ -12,7 +12,7 @@ public class Feeler extends Limb {
 	public Feeler(Creature _creature, PVector _pos, float _width, float _angle) {
 		super(_creature, _pos);
 		width = _width;
-		setColor(p.color(p.random(70),80,80, 95));
+		setFillColor(p.color(p.random(70),80,80, 95));
 		angle = _angle;
 	}
 
@@ -44,7 +44,7 @@ public class Feeler extends Limb {
 	}
 
 	@Override
-	public void setColor(int _color) {
+	public void setFillColor(int _color) {
 		color = _color;
 	}
 	

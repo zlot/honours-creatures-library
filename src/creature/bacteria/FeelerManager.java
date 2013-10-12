@@ -36,7 +36,7 @@ public class FeelerManager extends LimbManager {
 		float width = creature.getBody().getWidth();
 		float height = creature.getBody().getHeight();
 		
-		float feelerWidth = height * 0.18f;
+		float feelerWidth = width * 0.18f;
 		
 		ArrayList<PVector> bodyVertices = creature.getBody().getVertices();
 		

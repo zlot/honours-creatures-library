@@ -27,10 +27,10 @@ public abstract class Part extends PClass {
 		return pos;
 	}
 	
-	public void setColor(int color) {
+	public void setFillColor(int color) {
 		this.color = color;
 	};
-
+	
 	public Creature getCreature() {
 		return creature;
 	}

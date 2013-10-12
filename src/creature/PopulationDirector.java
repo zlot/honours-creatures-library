@@ -35,32 +35,16 @@ public class PopulationDirector extends PClass {
 	}
 	
 	public void update() {
-////////////////////////////
-//////////////////////// NOTE: HAVE SWAPPED AROUND ORDER OF THINGS:
-		//////////////// creatures update
-		//////////////// THEN behaviours get to change the standard order of things
-		//////////////// THEN creatures draw. This is so PBox2D works better. might break other things.
-		
+
 		/* Update all behaviours */
-		for(Creature c : creatures) {
-
-			c.update();
-			// iterate through Map of behaviours.
-			for (Entry<Class<? extends Behaviour>, Behaviour> entry : c.getBehaviourManager().getBehaviours().entrySet()) {
-				entry.getValue().update();
-			}
-
-			if(c.getLimbManager() != null) {
-				c.getLimbManager().update(); // update limbs. This may or may not do anything
-										     // depending on the implementation of the limb.
-			}
+		for(Creature creature : creatures) {
+			creature.update();
 		}
 
-		/* Update all creatures */
 		/* Draw all creatures */
-		for(Creature c : creatures) {
+		for(Creature creature : creatures) {
 //			c.update();
-			c.draw();
+			creature.draw();
 		}
 	}
 	

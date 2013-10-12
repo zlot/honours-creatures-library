@@ -4,7 +4,6 @@ import behaviour.PBox2DBehaviour;
 import processing.core.PVector;
 import creature.Creature;
 import creature.bacteria.FeelerManager;
-import creature.virus.TentacleManager;
 
 public class TriangleThing extends Creature {
 

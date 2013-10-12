@@ -10,7 +10,7 @@ public class TriangleThingBody extends Body {
 
 	public TriangleThingBody(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos, _width, _height);
-		setColor(p.color(330, 79, 88));
+		setFillColor(p.color(330, 79, 88));
 	}
 
 	@Override

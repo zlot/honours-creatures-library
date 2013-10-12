@@ -11,7 +11,7 @@ public class BacteriaBody extends Body {
 
 	public BacteriaBody(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos, _width, _height);
-		setColor(p.color(34,160,200));
+		setFillColor(p.color(34,160,200));
 	}
 	
 	@Override
@@ -68,7 +68,6 @@ public class BacteriaBody extends Body {
 	      // Set the location of each vertex to the new one
 	      //bodyPShape.setVertex(i, r.x, r.y);
 	      pos.set(r.x, r.y);
-	      
 	      
 	      // increment perlin noise x value
 	      xoff+= 0.5;

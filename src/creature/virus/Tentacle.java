@@ -64,7 +64,7 @@ public class Tentacle extends Limb {
 
 
 	@Override
-	public void setColor(int color) {
+	public void setFillColor(int color) {
 	}
 	  
 }

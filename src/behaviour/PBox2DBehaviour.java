@@ -162,7 +162,7 @@ public class PBox2DBehaviour extends Behaviour {
 		collisionBehaviourForCreature.collisionAction();
 	}
 	private void collisionAction() {
-		creature.getBody().setColor(0xFFBB0000); // hexadecimal colour: 0x[alpha][red][green][blue]
+		creature.getBody().setFillColor(0xFFBB0000); // hexadecimal colour: 0x[alpha][red][green][blue]
 	}
 	
 	static public void endContact(Contact c) {
@@ -177,8 +177,8 @@ public class PBox2DBehaviour extends Behaviour {
 		  Creature c2 = (Creature) b2.getUserData();
 		  
 		  if(c1 instanceof Creature && c2 instanceof Creature) {
-				c1.getBody().setColor(0xFF007744); // hexadecimal colour: 0x[alpha][red][green][blue]
-				c2.getBody().setColor(0xFF007744); // hexadecimal colour: 0x[alpha][red][green][blue]
+				c1.getBody().setFillColor(0xFF007744); // hexadecimal colour: 0x[alpha][red][green][blue]
+				c2.getBody().setFillColor(0xFF007744); // hexadecimal colour: 0x[alpha][red][green][blue]
 		  } else {
 			  // else, it could be a collision between creature and boundary; do nothing for now.
 		  }

@@ -9,6 +9,9 @@ public abstract class Body extends Part {
 
 	protected float width, height;
 	
+	// note: to modify bodyPShape vertexes, must use bodyPShape.setVertex(i, PVector).
+	// can't modify a PVector v = bodyPShape.getVertex(i) for example.
+	// This looks like it must just make a copy! not a direct pointer to the vertex INSIDE bodyPShape.
 	protected PShape bodyPShape;
 	// We are using an ArrayList to keep a duplicate copy
 	// of vertices original locations.
@@ -42,6 +45,13 @@ public abstract class Body extends Part {
 	}
 
 	
+	/**
+	 * Optional Override 
+	 */
+	public void update() {
+		// Optional Override.
+	}
+	
 	public void setWidth(float _width) {
 		width = _width;
 	}
@@ -49,25 +59,11 @@ public abstract class Body extends Part {
 		height = _height;
 	}
 	public void setAABB(float width, float height) {
-		
-///////////////////////////////////////
-///////////////////////////////////////
-///////////////////////////////////////
-//////// COULD USE bodyPShape.getWidth(), bodyPShape.getHeight()?
-		/////////// note Javadoc for this says "gets width of drawing area. Not necessarily shape boundary".
 		PVector lowerVertex = new PVector(-width/2, height/2);
 		PVector upperVertex = new PVector(width/2, -height/2);
 		aabb = new AABB(lowerVertex, upperVertex);
 	}
 	
-///////////////////////////////////////
-///////////////MUST IMPLEMENT THIS IN ALL OTHER CREATURES.
-	/**
-	 * MUST set bodyPShape. How to force this?
-	 * maybe force it to return a bodyPShape, and check if null in contructor?
-	 * 
-	 * Can create simple shapes using the p.createShape(RECT, x, y, width, height) method.
-	 */
 	protected abstract PShape createBody();
 	
 	public PShape getBodyPShape() {
@@ -77,9 +73,15 @@ public abstract class Body extends Part {
 		bodyPShape = _bodyPShape;
 	}
 	
-	public void setColor(int color) {
-		super.setColor(color);
+	public void setFillColor(int color) {
+		super.setFillColor(color);
 		bodyPShape.setFill(color);
+	}
+	public void setStrokeColor(int color) {
+		bodyPShape.setStroke(color);
+	};
+	public int getStrokeColor() {
+		return bodyPShape.getStroke(0);
 	}
 	
 	public ArrayList<PVector> getVertices() {

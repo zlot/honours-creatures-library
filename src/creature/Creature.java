@@ -4,7 +4,6 @@ import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import behaviour.PBox2DBehaviour;
 import processing.core.PVector;
 import loader.PClass;
 
@@ -42,18 +41,50 @@ public abstract class Creature extends PClass {
 		p.popMatrix();
 	}
 	
-	// run implicitly inside PopulationDirector?
+	// run implicitly inside PopulationDirector.
 	protected void update() {
+////////////////////////////
+////////////////////////NOTE: HAVE SWAPPED AROUND ORDER OF THINGS:
+//////////////// creatures update
+//////////////// THEN behaviours get to change the standard order of things
+//////////////// THEN creatures draw. This is so PBox2D works better. might break other things.
+		//////// This seems a bit counter-intuitative (behaviours apply force, and only gets 
+		//////// added to acceleration on next update round) but seems to work better.
+		
+		updateMovement();
+		// set acc back to 0 for next update (). http://natureofcode.com/book/chapter-2-forces/
+		acc.mult(0);
+		
+		updateBehaviours();
+		updateLimbs();
+		
+	}
+	
+	private void updateMovement() {
+		body.update();
+		
 		vel.add(acc);
 		// vel.limit(10); // might need this as a field, and accessor/setter method
 		pos.add(vel);
 		
 		 // get angle of pos to vel (this is in radians) for angle creature is moving.
-	    setAngle(vel.heading());		
-		
-		// set acc back to 0 for next update (). http://natureofcode.com/book/chapter-2-forces/
-		acc.mult(0);
+	    setAngle(vel.heading());
 	}
+	
+	private void updateBehaviours() {
+		// iterate through Map of behaviours.
+		for (Entry<Class<? extends Behaviour>, Behaviour> entry : behaviourManager.getBehaviours().entrySet()) {
+			entry.getValue().update();
+		}
+	}
+	
+	private void updateLimbs() {
+		if(limbManager != null) {
+			limbManager.update();  // update limbs. This may or may not do anything
+								   // depending on the implementation of the limb.
+		}
+	}
+	
 	
 	/**
 	 * Convenience function. Equivalent of calling add(Behaviour b) on behaviourManager.
@@ -75,7 +106,7 @@ public abstract class Creature extends PClass {
 		// re-establish limbs to attach to new body.
 		limbManager.getLimbs().clear();
 		limbManager.createLimbs();
-		// re-establish behaviours (they might depend on new body)
+		// re-establish behaviours (as they might depend on new body)
 		reInitialiseBehaviours();
 	}
 	

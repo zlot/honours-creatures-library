@@ -4,6 +4,7 @@ import creature.*;
 import creature.virus.*;
 import creature.worm.Worm;
 import creature.bacteria.Bacteria;
+import creature.creeper.Creeper;
 import creature.millipede.Millipede;
 import creature.squarething.*;
 import creature.trianglething.TriangleThing;
@@ -49,7 +50,9 @@ public class World extends PClass {
 //	 	populationDirector.addCreatures(TriangleThing.class, 10);
 	 	
 //	 	populationDirector.addCreatures(Bacteria.class, 3);
-//	 	populationDirector.addCreatures(Worm.class, 16);
+	 	populationDirector.addCreatures(Worm.class, 6);
+	 	
+//	 	populationDirector.addCreatures(Creeper.class, 7);
 	 	
 	}
 	

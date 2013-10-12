@@ -9,7 +9,7 @@ public class MillipedeBody extends Body {
 	
 	public MillipedeBody(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos, _width, _height);
-		setColor(0xea00aa22);
+		setFillColor(0xea00aa22);
 	}
 
 	@Override
@@ -26,6 +26,7 @@ public class MillipedeBody extends Body {
 		bodyPShape.beginShape();
 		
 		int gapBetweenFeelers = 8;
+		
 		// top left
 		bodyPShape.vertex(-width/2,-height/2);
 		// top right

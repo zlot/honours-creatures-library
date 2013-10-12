@@ -1,5 +1,6 @@
 package creature.millipede;
 
+import behaviour.MoveBehaviour;
 import behaviour.MoveBehaviourRandom;
 import behaviour.MoveBehaviourWithAng;
 import behaviour.PBox2DBehaviour;
@@ -20,7 +21,7 @@ public class Millipede extends Creature {
 	@Override
 	protected void createParts() {
 		// create body
-		body = new MillipedeBody(this, pos, 11, 180);
+		body = new MillipedeBody(this, pos, 180, 11);
 		
 		// create feelerManager.
 		limbManager = new creature.bacteria.FeelerManager(this);
@@ -28,8 +29,8 @@ public class Millipede extends Creature {
 
 	@Override
 	protected void addBehaviours() {
-		addBehaviour(new MoveBehaviourWithAng(this));
-		addBehaviour(new PBox2DBehaviour(this));
+		addBehaviour(new MoveBehaviourRandom(this));
+//		addBehaviour(new PBox2DBehaviour(this));
 	}
 
 }
