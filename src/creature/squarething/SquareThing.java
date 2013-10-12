@@ -32,7 +32,7 @@ public class SquareThing extends Creature {
 
 	@Override
 	protected void addBehaviours() {
-		addBehaviour(new PBox2DBehaviour(this, PBox2DBehaviour.CreatureShape.SQUARE));
+		addBehaviour(new PBox2DBehaviour(this));
 	}
 
 }

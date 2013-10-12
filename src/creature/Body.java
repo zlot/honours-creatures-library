@@ -22,9 +22,8 @@ public abstract class Body extends Part {
 		// THIS CONSTRUCTOR MEANT TO BE USED ONLY FOR TWEAK MODE RUNTIME STUFF.
 		width = -1;
 		height = -1;
-		
-		
 	}
+	
 	public Body(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos);
 		width = _width;

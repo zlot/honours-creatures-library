@@ -36,8 +36,7 @@ public class Virus extends Creature {
 	  }
 	  
 	  protected void addBehaviours() {
-//		  addBehaviour(new MoveBehaviour(this));
-		  addBehaviour(new PBox2DBehaviour(this, PBox2DBehaviour.CreatureShape.CIRCLE));
+		  addBehaviour(new PBox2DBehaviour(this));
 	  }
 	  
 	}

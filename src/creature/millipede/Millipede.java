@@ -1,5 +1,6 @@
 package creature.millipede;
 
+import behaviour.MoveBehaviourRandom;
 import behaviour.MoveBehaviourWithAng;
 import processing.core.PVector;
 import creature.Creature;
@@ -18,7 +19,7 @@ public class Millipede extends Creature {
 	public void draw() {
 		p.pushMatrix();
 			p.translate(getPos().x, getPos().y);
-			p.rotate(angle+p.radians(90));
+			p.rotate(angle+p.radians(90)); // rotate 90degrees because of created orientation.
 			body.draw();
 			limbManager.draw();
 		p.popMatrix();
@@ -36,6 +37,7 @@ public class Millipede extends Creature {
 	@Override
 	protected void addBehaviours() {
 		addBehaviour(new MoveBehaviourWithAng(this));
+//		addBehaviour(new MoveBehaviourRandom(this));
 	}
 
 }

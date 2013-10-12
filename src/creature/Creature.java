@@ -6,6 +6,9 @@ import loader.PClass;
 public abstract class Creature extends PClass {
 
 	protected PVector pos = null; // will point to same pos instance as body pos.
+	protected PVector vel = null;
+	protected PVector acc = null;
+	
 	protected float angle; // angle creature is facing, in radians.
 	protected Body body = null;
 	protected LimbManager limbManager = null;
@@ -13,6 +16,8 @@ public abstract class Creature extends PClass {
 	protected BehaviourManager behaviourManager = null;
 	
 	public Creature() {
+		vel = new PVector(0,0);
+		acc = new PVector(0,0);
 		behaviourManager = new BehaviourManager(this);
 	}
 	
@@ -22,8 +27,32 @@ public abstract class Creature extends PClass {
 	
 	public abstract void draw();
 	
+	// run implicitly inside PopulationDirector?
+	protected void update() {
+		vel.add(acc);
+		// vel.limit(10); // might need this as a field, and accessor/setter method
+		pos.add(vel);
+		
+		 // get angle of pos to vel (this is in radians) for angle creature is moving.
+	    setAngle(vel.heading());		
+		
+		// set acc back to 0 for next update (). http://natureofcode.com/book/chapter-2-forces/
+		acc.mult(0);
+	}
+	
+	/**
+	 * Convenience function. Equivalent of calling add(Behaviour b) on behaviourManager.
+	 */
 	protected void addBehaviour(Behaviour b) {
+		b.setCreature(this);
 		behaviourManager.add(b);
+	}
+	/**
+	 * Convenience function. Equivalent of calling remove(Behaviour b) on behaviourManager.
+	 */
+	protected void removeBehaviour(Behaviour b) {
+		// behaviours is a map.
+		behaviourManager.remove(b);
 	}
 	
 	public void setBody(Body _body) {
@@ -79,6 +108,25 @@ public abstract class Creature extends PClass {
 	public PVector getPos() {
 		return pos;
 	}
+	public void setVelocity(PVector _vel) {
+		vel = _vel;
+	}
+	public PVector getVelocity() {
+		return vel;
+	}
+	public void setAcceleration(PVector _acc) {
+		acc = _acc;
+	}
+	public void addAcceleration(PVector force) {
+		acc.add(force);
+	}
+	
+	public PVector getAcceleration() {
+		return acc;
+	}
+	
+	
+	
 	public float getAngle() {
 		return angle;
 	}
