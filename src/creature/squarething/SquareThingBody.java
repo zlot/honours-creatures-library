@@ -3,6 +3,7 @@ package creature.squarething;
 import processing.core.PShape;
 import processing.core.PVector;
 import creature.Body;
+import creature.CreatePShape;
 import creature.Creature;
 
 public class SquareThingBody extends Body {
@@ -13,24 +14,14 @@ public class SquareThingBody extends Body {
 	}
 
 	@Override
-	public void draw() {
-		p.pushStyle();
-		p.stroke(color);
-		p.noFill();
-		p.rectMode(p.CENTER);
-		p.rect(0, 0, getWidth(), getHeight());
-		p.popStyle();
-	}
-
-	@Override
 	public void setColor(int _color) {
 		color = _color;
 	}
 
 	@Override
 	protected PShape createBody() {
-		// TODO Auto-generated method stub
-		return null;
+		PShape pShapeBody = CreatePShape.rect(0, 0, width, height);
+		return pShapeBody;
 	}
 
 }

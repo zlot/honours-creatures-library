@@ -15,13 +15,6 @@ public class FeelerManager extends LimbManager {
 	AbstractWave sineWave;
 	float sineAngle;
 	
-	public FeelerManager() {
-		// MUST BE SET IF THIS CONSTRUCTOR IS USED.
-		// THIS CONSTRUCTOR MEANT TO BE USED ONLY FOR TWEAK MODE RUNTIME STUFF.
-		super();
-		sineWave = new SineWave(0, p.radians(4), 1, p.random(5));
-	}
-	
 	public FeelerManager(Creature _c) {
 		super(_c);
 		createLimbs();

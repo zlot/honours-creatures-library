@@ -15,15 +15,6 @@ public class Millipede extends Creature {
         addBehaviours();
 	}
 
-	@Override
-	public void draw() {
-		p.pushMatrix();
-			p.translate(getPos().x, getPos().y);
-			p.rotate(angle+p.radians(90)); // rotate 90degrees because of created orientation.
-			body.draw();
-			limbManager.draw();
-		p.popMatrix();
-	}
 
 	@Override
 	protected void createParts() {

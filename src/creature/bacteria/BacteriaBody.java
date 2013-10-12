@@ -9,10 +9,6 @@ import creature.Creature;
 
 public class BacteriaBody extends Body {
 
-	public BacteriaBody() {
-		super();
-	}
-	
 	public BacteriaBody(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos, _width, _height);
 		setColor(p.color(34,160,200));

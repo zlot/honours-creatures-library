@@ -25,7 +25,7 @@ public class PBox2DBehaviour extends Behaviour {
 	
 	public PBox2DBehaviour(Creature _creature) {
 		super(_creature);
-		creatureShape = CreatureShape.CIRCLE;
+		creatureShape = CreatureShape.SQUARE;
 		// create box2D world if not created already (lazy instantiation)
 		createBox2DWorld();
 		addToBox2dWorld();
@@ -74,7 +74,7 @@ public class PBox2DBehaviour extends Behaviour {
 	    // Parameters that affect physics
 	    fixtureDef.density = 1f;
 	    fixtureDef.friction = 0.3f;
-	    fixtureDef.restitution = 0.75f; // bounce off other objects
+	    fixtureDef.restitution = 0.82f; // bounce off other objects
 		
 	    // Attach shape to fixture
 	    fixtureDef.shape = shape;
@@ -85,7 +85,7 @@ public class PBox2DBehaviour extends Behaviour {
 	    body.resetMassData();
 	    
 	    body.setLinearVelocity(new Vec2(p.random(-4,4),p.random(-4,4)));
-//	    body.setAngularVelocity(p.random(-2,2));
+	    body.setAngularVelocity(p.random(-1,1));
 
 	    // add application-specific body data. Box2d body now knows the creature it is attached to.
 	    // can be retrieved by casting body.getUserData() to Creature.
@@ -93,8 +93,9 @@ public class PBox2DBehaviour extends Behaviour {
 	}
 	
 	private Shape defineSquareShape() {
-	    float box2dW = box2d.scalarPixelsToWorld(creature.getBody().getWidth()/2);
-	    float box2dH = box2d.scalarPixelsToWorld(creature.getBody().getHeight()/2);
+		// note: 2 seems rather arbitrary; can't really figure out why it cant just be full width/height.
+	    float box2dW = box2d.scalarPixelsToWorld((int)(creature.getBody().getWidth()/2));
+	    float box2dH = box2d.scalarPixelsToWorld((int)(creature.getBody().getHeight()/2));
 	    PolygonShape polygonShape = new PolygonShape();
 	    polygonShape.setAsBox(box2dW, box2dH);
 	    return polygonShape;
@@ -191,11 +192,9 @@ public class PBox2DBehaviour extends Behaviour {
 		float a = body.getAngle(); // already in radians it seems
 //		PVector vel = new PVector(body.getLinearVelocity().x, body.getLinearVelocity().y);
 //		creature.setVelocity(vel);
-		creature.setAngle(a);
+		creature.setAngle(-a);
 		
 		creature.setPos(new PVector(physicsPos.x, physicsPos.y));
-//		creature.getBody().getPos().x = physicsPos.x;
-//		creature.getBody().getPos().y = physicsPos.y;
 	}
 
 

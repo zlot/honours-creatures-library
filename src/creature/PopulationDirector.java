@@ -52,7 +52,7 @@ public class PopulationDirector extends PClass {
 
 			if(c.getLimbManager() != null) {
 				c.getLimbManager().update(); // update limbs. This may or may not do anything
-												 // depending on the implementation of the limb.
+										     // depending on the implementation of the limb.
 			}
 		}
 
@@ -99,7 +99,7 @@ public class PopulationDirector extends PClass {
 				Class<LimbManager> limbManagerClass = limbManager;
 				Constructor<LimbManager> limbManagerConstructor = limbManagerClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
 				LimbManager limbManagerInstance = limbManagerConstructor.newInstance(c);
-				c.setLimbManager2(limbManagerInstance);
+				c.setLimbManager(limbManagerInstance);
 			} catch (Exception ex) {ex.printStackTrace();}
 		}	
 	}

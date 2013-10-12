@@ -9,14 +9,8 @@ import creature.bacteria.Feeler;
 public class TentacleManager extends LimbManager {
 
 	
-	public TentacleManager() {
-		super();
-	}
-	
-	
 	public TentacleManager(Creature _c) {
 		super(_c);
-		
 		createLimbs();
 	}
 

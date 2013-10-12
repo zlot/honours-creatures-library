@@ -15,6 +15,9 @@ public abstract class Creature extends PClass {
 	
 	protected BehaviourManager behaviourManager = null;
 	
+	/**
+	 * Constructor of subclass must call setPos(), createParts() and addBehaviours()!
+	 */
 	public Creature() {
 		vel = new PVector(0,0);
 		acc = new PVector(0,0);
@@ -25,7 +28,14 @@ public abstract class Creature extends PClass {
 	
 	protected abstract void addBehaviours();
 	
-	public abstract void draw();
+	public void draw() {
+		p.pushMatrix();
+			p.translate(getPos().x, getPos().y);
+			p.rotate(angle);
+			body.draw();
+			if(limbManager != null) limbManager.draw();
+		p.popMatrix();
+	}
 	
 	// run implicitly inside PopulationDirector?
 	protected void update() {
@@ -62,16 +72,7 @@ public abstract class Creature extends PClass {
 		limbManager.createLimbs();
 	}
 	
-	public void setLimbManager2(LimbManager _limbManager) {
-		_limbManager.createLimbs();
-		synchronized(limbManager.getLimbs()) {
-			limbManager = _limbManager;
-		}
-	}
-	
 	public void setLimbManager(LimbManager _limbManager) {
-		if(_limbManager.getCreature() == null)
-			_limbManager.setCreature(this);
 		_limbManager.createLimbs();
 		synchronized(limbManager.getLimbs()) {
 			limbManager = _limbManager;

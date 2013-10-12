@@ -16,14 +16,6 @@ public abstract class Body extends Part {
 	
 	AABB aabb; // aabb for body. needs: farthest top, right, bottom, left values. how to get these?
 	
-	public Body() {
-		super();
-		// MUST BE SET IF THIS CONSTRUCTOR IS USED.
-		// THIS CONSTRUCTOR MEANT TO BE USED ONLY FOR TWEAK MODE RUNTIME STUFF.
-		width = -1;
-		height = -1;
-	}
-	
 	public Body(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos);
 		width = _width;
@@ -34,7 +26,7 @@ public abstract class Body extends Part {
 		
 		assert(bodyPShape != null) : "You have not correctly initialised and returned "
 				+ "a bodyPShape in createBody()! To create a simple shape, e.g. an ellipse, use "
-				+ "createShape(ELLIPSE, 0, 0, width, height)";
+				+ "the static methods in the CreatePShape class.";
 		
 		if(vertices.isEmpty()) {
 			// fill vertices with bodyPShape vertices.
@@ -43,7 +35,12 @@ public abstract class Body extends Part {
 		}
 	}
 	
-	public abstract void draw();
+	public void draw() {
+		p.pushStyle();
+		p.shape(bodyPShape);
+		p.popStyle();
+	}
+
 	
 	public void setWidth(float _width) {
 		width = _width;
@@ -83,7 +80,6 @@ public abstract class Body extends Part {
 	public void setColor(int color) {
 		super.setColor(color);
 		bodyPShape.setFill(color);
-		
 	}
 	
 	public ArrayList<PVector> getVertices() {

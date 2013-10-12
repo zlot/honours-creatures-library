@@ -7,10 +7,6 @@ import creature.Creature;
 
 public class MillipedeBody extends Body {
 	
-	public MillipedeBody() {
-		super();
-	}
-	
 	public MillipedeBody(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos, _width, _height);
 		setColor(0xea00aa22);
@@ -25,7 +21,6 @@ public class MillipedeBody extends Body {
 
 	@Override
 	protected synchronized PShape createBody() {
-//		PShape bodyPShape = p.createShape(p.RECT, 0, 0, width, height);
 		
 		PShape bodyPShape = p.createShape();
 		bodyPShape.beginShape();

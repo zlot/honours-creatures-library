@@ -14,13 +14,6 @@ public abstract class LimbManager extends PClass {
 	protected List<Limb> limbs = Collections.synchronizedList(new ArrayList<Limb>());
 	
 	
-	public LimbManager() {
-		// MUST BE SET IF THIS CONSTRUCTOR IS USED.
-		// THIS CONSTRUCTOR MEANT TO BE USED ONLY FOR TWEAK MODE RUNTIME STUFF.
-		creature = null;
-		limbs.clear();
-	}
-	
 	public LimbManager(Creature _c) {
 		creature = _c;
 	}
