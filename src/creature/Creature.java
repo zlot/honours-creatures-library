@@ -1,5 +1,10 @@
 package creature;
 
+import java.lang.reflect.Constructor;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import behaviour.PBox2DBehaviour;
 import processing.core.PVector;
 import loader.PClass;
 
@@ -70,6 +75,23 @@ public abstract class Creature extends PClass {
 		// re-establish limbs to attach to new body.
 		limbManager.getLimbs().clear();
 		limbManager.createLimbs();
+		// re-establish behaviours (they might depend on new body)
+		reInitialiseBehaviours();
+	}
+	
+	private void reInitialiseBehaviours() {
+		Map<Class<? extends Behaviour>, Behaviour> behaviours = getBehaviourManager().getBehaviours();
+		
+		for (Entry<Class<? extends Behaviour>, Behaviour> entry : getBehaviourManager().getBehaviours().entrySet()) {
+			
+			Class<? extends Behaviour> behaviourClass = entry.getKey();
+			
+			try {
+//				p.println(behaviourClass.toString());
+				Constructor<? extends Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
+				behaviours.put(entry.getKey(), behaviourConstructor.newInstance(this));
+			} catch (Exception ex) { ex.printStackTrace(); }
+		}
 	}
 	
 	public void setLimbManager(LimbManager _limbManager) {

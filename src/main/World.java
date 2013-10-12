@@ -42,13 +42,13 @@ public class World extends PClass {
 		// because we need to create each creature AND MAKE SURE a behaviour is attached to its behaviourManager.
 //		populationDirector.addCreatures(Virus.class, 2);
 		
-	 	populationDirector.addCreatures(SquareThing.class, 15);
+//	 	populationDirector.addCreatures(SquareThing.class, 11);
 		
-//	 	populationDirector.addCreatures(Millipede.class, 3);
+	 	populationDirector.addCreatures(Millipede.class, 3);
 	 	
-	 	populationDirector.addCreatures(TriangleThing.class, 14);
+//	 	populationDirector.addCreatures(TriangleThing.class, 10);
 	 	
-	 	populationDirector.addCreatures(Bacteria.class, 2);
+//	 	populationDirector.addCreatures(Bacteria.class, 3);
 //	 	populationDirector.addCreatures(Worm.class, 16);
 	 	
 	}
