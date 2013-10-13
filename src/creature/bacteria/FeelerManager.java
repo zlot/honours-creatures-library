@@ -22,22 +22,40 @@ public class FeelerManager extends LimbManager {
 		sineWave = new SineWave(0, p.radians(4), 1, p.random(5));
 	}
 	
-
 	@Override
 	public void update() {
 		sineAngle = sineWave.update();
+		updateDynamicPosition();
 	}
 
+	
+	/* note: might slow down sketch! */
+	protected void updateDynamicPosition() {
+		// follow body dynamically?
+		PShape bodyPShape = creature.getBody().getBodyPShape();
+		int vertexCount = bodyPShape.getVertexCount();
+		
+		for(int i=0; i<vertexCount; i++) {
+			// has vertex count changed (ie has the body of creature been replaced)?
+			// if so, break out.
+			if(limbs.size() != vertexCount)
+				break;
+			
+			// for each, set corresponding feeler to new position.
+			limbs.get(i).getPos().x = bodyPShape.getVertexX(i);
+			limbs.get(i).getPos().y = bodyPShape.getVertexY(i);
+		}
+	}
+	
+	
 	@Override
 	public void createLimbs() {
-		// Create limbs around body
-		// have to find perimeter of body. How to do this?
-		// PSHAPE and vertices!
 		float width = creature.getBody().getWidth();
 		float height = creature.getBody().getHeight();
 		
 		float feelerWidth = width * 0.18f;
 		
+		// note: this gets the static vertices. If they update during draw loop, these vertices are not updated.
 		ArrayList<PVector> bodyVertices = creature.getBody().getVertices();
 		
 		for(int i=0; i<bodyVertices.size(); i++) {

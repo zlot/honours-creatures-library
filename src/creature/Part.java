@@ -10,12 +10,6 @@ public abstract class Part extends PClass {
 	
 	protected int color; // hexadecimal colour: 0x[alpha][red][green][blue]
 	
-	public Part() {
-		// everything becomes null!
-		creature = null;
-		pos = null;
-	}
-	
 	public Part(Creature _creature, PVector _pos) {
 		creature = _creature;
 		pos = _pos;

@@ -100,7 +100,6 @@ public abstract class Creature extends PClass {
 		// behaviours is a map.
 		behaviourManager.remove(b);
 	}
-	
 	public void setBody(Body _body) {
 		body = _body;
 		// re-establish limbs to attach to new body.
