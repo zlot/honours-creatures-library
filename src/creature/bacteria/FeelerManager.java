@@ -55,6 +55,29 @@ public class FeelerManager extends LimbManager {
 		
 		float feelerWidth = width * 0.18f;
 		
+		for(int i=0; i<creature.getBody().getBodyPShape().getVertexCount(); i++) {
+			// get vertex.
+			PVector v = new PVector(creature.getBody().getBodyPShape().getVertexX(i),
+					creature.getBody().getBodyPShape().getVertexY(i));
+			// use PVector as location of limb.
+			// angle. Um. 
+			float angleInRadians = v.heading();
+			
+			Limb feeler = new Feeler(creature, new PVector(v.x, v.y), feelerWidth, angleInRadians);
+			
+			// TODO: have to find a way to make this a FORCED thing.
+			limbs.add(feeler);
+		}
+		
+	}
+
+	
+	public void createLimbsWORKINGBUTOLD() {
+		float width = creature.getBody().getWidth();
+		float height = creature.getBody().getHeight();
+		
+		float feelerWidth = width * 0.18f;
+		
 		// note: this gets the static vertices. If they update during draw loop, these vertices are not updated.
 		ArrayList<PVector> bodyVertices = creature.getBody().getVertices();
 		

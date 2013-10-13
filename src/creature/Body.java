@@ -52,8 +52,32 @@ public abstract class Body extends Part {
 		// Optional Override.
 	}
 	
+////////////////////////////////
+//////////////////////////////
+	//////////////////////////
+	////////////// TEMP ONLY. testing with scale!
+	float setScale;
+	
+	public void setScale(float newScaleValue) {
+		if(setScale == newScaleValue)
+			return;
+		bodyPShape.scale(newScaleValue);
+		setScale = newScaleValue;
+	}
+	
+	public void setScale(float scaleXValue, float scaleYValue) {
+		bodyPShape.scale(scaleXValue, scaleYValue);
+	}
+	
+//////////////////////////////
+//////////////////////////////
+//////////////////////////
+////////////// TEMP ONLY. testing with setSCale!(see above)	
+	
 	public void setWidth(float _width) {
 		width = _width;
+		// re-create bodyPShape?
+		createBody();
 	}
 	public void setHeight(float _height) {
 		height = _height;

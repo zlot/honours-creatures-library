@@ -21,14 +21,29 @@ public class PopulationDirector extends PClass {
 		return singleton;
 	}
 	
+	@SuppressWarnings("static-access")
 	public void addCreature(Creature c) {
+		String creatureName = c.getClass().getName();
+		String realCreatureName = creatureName.substring(creatureName.indexOf('$')+1);
+		
+		// assertions to make sure developer has coded creature correctly.
+		if(c.pos == null)
+			p.println("You have not called setPos() for your creature: " + realCreatureName
+					+ ". Please call setPos() in " + realCreatureName + "'s constructor, after super()!");
+		
+		if(c.body == null)
+			p.println("You have not set a body for your creature: " + realCreatureName
+					+ ". Please set " + realCreatureName + "'s body variable, inside " + realCreatureName + ".createParts()!");
 		creatures.add(c);
 	}
+	
 	public void addCreatures(Class<? extends Creature> creatureClass, int numOfCreatures) {
 		Creature c = null;
+		
 		for(int i=0; i<numOfCreatures; i++) {
 			try {
 				c = creatureClass.newInstance();
+
 			} catch (Exception e) {e.printStackTrace();}
 			creatures.add(c);
 		}

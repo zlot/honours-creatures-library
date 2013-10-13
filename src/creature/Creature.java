@@ -85,7 +85,6 @@ public abstract class Creature extends PClass {
 		}
 	}
 	
-	
 	/**
 	 * Convenience function. Equivalent of calling add(Behaviour b) on behaviourManager.
 	 */
@@ -103,8 +102,10 @@ public abstract class Creature extends PClass {
 	public void setBody(Body _body) {
 		body = _body;
 		// re-establish limbs to attach to new body.
-		limbManager.getLimbs().clear();
-		limbManager.createLimbs();
+		if(limbManager != null) {
+			limbManager.getLimbs().clear();
+			limbManager.createLimbs();
+		}
 		// re-establish behaviours (as they might depend on new body)
 		reInitialiseBehaviours();
 	}
@@ -113,9 +114,7 @@ public abstract class Creature extends PClass {
 		Map<Class<? extends Behaviour>, Behaviour> behaviours = getBehaviourManager().getBehaviours();
 		
 		for (Entry<Class<? extends Behaviour>, Behaviour> entry : getBehaviourManager().getBehaviours().entrySet()) {
-			
 			Class<? extends Behaviour> behaviourClass = entry.getKey();
-			
 			try {
 //				p.println(behaviourClass.toString());
 				Constructor<? extends Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
@@ -125,10 +124,19 @@ public abstract class Creature extends PClass {
 	}
 	
 	public void setLimbManager(LimbManager _limbManager) {
+		_limbManager.getLimbs().clear();
 		_limbManager.createLimbs();
-		synchronized(limbManager.getLimbs()) {
+		
+		if(limbManager == null) {
+			// don't synchonize, as there is no limbs array yet.
 			limbManager = _limbManager;
+		} else {
+			// else, synchronize access.
+			synchronized(limbManager.getLimbs()) {
+				limbManager = _limbManager;
+			}
 		}
+		reInitialiseBehaviours();
 	}
 	
 	public Body getBody() {
@@ -143,6 +151,9 @@ public abstract class Creature extends PClass {
 	public void setPos(PVector _pos) {
 		pos = _pos;
 	}
+	public void setPos(float x, float y) {
+		pos = new PVector(x, y);
+	}
 	public PVector getPos() {
 		return pos;
 	}
@@ -155,6 +166,9 @@ public abstract class Creature extends PClass {
 	public void setAcceleration(PVector _acc) {
 		acc = _acc;
 	}
+	
+/////////////////////////// TODO::
+	//////////////////////// MAYBE change this to addForce??
 	public void addAcceleration(PVector force) {
 		acc.add(force);
 	}
