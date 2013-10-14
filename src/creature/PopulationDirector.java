@@ -4,14 +4,14 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
+import processing.core.PApplet;
 import loader.PClass;
 
 public class PopulationDirector extends PClass {
 
 	private static PopulationDirector singleton = new PopulationDirector(); // thread-safe.
 	
-	// List of all creatures in population
-	public ArrayList<Creature> creatures;
+	public ArrayList<Creature> creatures; // List of all creatures in population.
 
 	private PopulationDirector() {
 		creatures = new ArrayList<Creature>();
@@ -21,18 +21,17 @@ public class PopulationDirector extends PClass {
 		return singleton;
 	}
 	
-	@SuppressWarnings("static-access")
 	public void addCreature(Creature c) {
 		String creatureName = c.getClass().getName();
 		String realCreatureName = creatureName.substring(creatureName.indexOf('$')+1);
 		
 		// assertions to make sure developer has coded creature correctly.
 		if(c.pos == null)
-			p.println("You have not called setPos() for your creature: " + realCreatureName
+			PApplet.println("You have not called setPos() for your creature: " + realCreatureName
 					+ ". Please call setPos() in " + realCreatureName + "'s constructor, after super()!");
 		
 		if(c.body == null)
-			p.println("You have not set a body for your creature: " + realCreatureName
+			PApplet.println("You have not set a body for your creature: " + realCreatureName
 					+ ". Please set " + realCreatureName + "'s body variable, inside " + realCreatureName + ".createParts()!");
 		creatures.add(c);
 	}
@@ -51,6 +50,8 @@ public class PopulationDirector extends PClass {
 	
 	public void update() {
 
+//////////////////// TODO::: can I push draw() into the one loop yet? Or will that still break stuff?		
+		
 		/* Update all behaviours */
 		for(Creature creature : creatures) {
 			creature.update();
@@ -63,6 +64,10 @@ public class PopulationDirector extends PClass {
 		}
 	}
 	
+	
+	/**
+	 * Utility function for TweakMode tool only. Not for your use!
+	 */
 	public void setBodyForAllCreaturesOfClass(Class<Creature> creatureClass, Class<Body> body) {
 		ArrayList<Creature> creaturesOfTypeCreatureClass = new ArrayList<Creature>();
 		// iterate through creatures list: find all creatures of creatureClass.
@@ -82,7 +87,10 @@ public class PopulationDirector extends PClass {
 			} catch (Exception ex) {ex.printStackTrace();}
 		}
 	}
-	
+
+	/**
+	 * Utility function for TweakMode tool only. Not for your use!
+	 */
 	public void setLimbManagerForAllCreaturesOfClass(Class<Creature> creatureClass, Class<LimbManager> limbManager) {
 		ArrayList<Creature> creaturesOfTypeCreatureClass = new ArrayList<Creature>();
 		// iterate through creatures list: find all creatures of creatureClass.
@@ -102,7 +110,10 @@ public class PopulationDirector extends PClass {
 			} catch (Exception ex) {ex.printStackTrace();}
 		}	
 	}
-	
+
+	/**
+	 * Utility function for TweakMode tool only. Not for your use!
+	 */
 	public void addBehaviourForAllCreaturesOfClass(Class<Creature> creatureClass, Class<Behaviour> behaviour) {
 		ArrayList<Creature> creaturesOfTypeCreatureClass = new ArrayList<Creature>();
 		// iterate through creatures list: find all creatures of creatureClass.
@@ -123,6 +134,10 @@ public class PopulationDirector extends PClass {
 		}	
 		
 	}
+	
+	/**
+	 * Utility function for TweakMode tool only. Not for your use!
+	 */	
 	public void removeBehaviourForAllCreaturesOfClass(Class<Creature> creatureClass, Class<Behaviour> behaviour) {
 		ArrayList<Creature> creaturesOfTypeCreatureClass = new ArrayList<Creature>();
 		// iterate through creatures list: find all creatures of creatureClass.

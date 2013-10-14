@@ -9,11 +9,14 @@ import loader.PClass;
 
 public abstract class Creature extends PClass {
 
+	/***** STEERING BEHAVIOUR *****/
 	protected PVector pos = null; // will point to same pos instance as body pos.
 	protected PVector vel = null;
 	protected PVector acc = null;
 	
-	protected float angle; // angle creature is facing, in radians.
+	protected float angle; // angle creature is facing, in radians. 0 is facing east.
+	
+	/***** PARTS *****/
 	protected Body body = null;
 	protected LimbManager limbManager = null;
 	
@@ -41,15 +44,10 @@ public abstract class Creature extends PClass {
 		p.popMatrix();
 	}
 	
-	// run implicitly inside PopulationDirector.
+	/**
+	 * run every draw loop inside PopulationDirector.
+	 */
 	protected void update() {
-////////////////////////////
-////////////////////////NOTE: HAVE SWAPPED AROUND ORDER OF THINGS:
-//////////////// creatures update
-//////////////// THEN behaviours get to change the standard order of things
-//////////////// THEN creatures draw. This is so PBox2D works better. might break other things.
-		//////// This seems a bit counter-intuitative (behaviours apply force, and only gets 
-		//////// added to acceleration on next update round) but seems to work better.
 		
 		updateMovement();
 		// set acc back to 0 for next update (). http://natureofcode.com/book/chapter-2-forces/
@@ -80,25 +78,11 @@ public abstract class Creature extends PClass {
 	
 	private void updateLimbs() {
 		if(limbManager != null) {
-			limbManager.update();  // update limbs. This may or may not do anything
-								   // depending on the implementation of the limb.
+			limbManager.update();  // update limbs. This may or may not do anything, depending on implementation of limb.
 		}
 	}
 	
-	/**
-	 * Convenience function. Equivalent of calling add(Behaviour b) on behaviourManager.
-	 */
-	protected void addBehaviour(Behaviour b) {
-		b.setCreature(this);
-		behaviourManager.add(b);
-	}
-	/**
-	 * Convenience function. Equivalent of calling remove(Behaviour b) on behaviourManager.
-	 */
-	protected void removeBehaviour(Behaviour b) {
-		// behaviours is a map.
-		behaviourManager.remove(b);
-	}
+
 	public void setBody(Body _body) {
 		body = _body;
 		// re-establish limbs to attach to new body.
@@ -108,19 +92,6 @@ public abstract class Creature extends PClass {
 		}
 		// re-establish behaviours (as they might depend on new body)
 		reInitialiseBehaviours();
-	}
-	
-	private void reInitialiseBehaviours() {
-		Map<Class<? extends Behaviour>, Behaviour> behaviours = getBehaviourManager().getBehaviours();
-		
-		for (Entry<Class<? extends Behaviour>, Behaviour> entry : getBehaviourManager().getBehaviours().entrySet()) {
-			Class<? extends Behaviour> behaviourClass = entry.getKey();
-			try {
-//				p.println(behaviourClass.toString());
-				Constructor<? extends Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
-				behaviours.put(entry.getKey(), behaviourConstructor.newInstance(this));
-			} catch (Exception ex) { ex.printStackTrace(); }
-		}
 	}
 	
 	public void setLimbManager(LimbManager _limbManager) {
@@ -138,6 +109,41 @@ public abstract class Creature extends PClass {
 		}
 		reInitialiseBehaviours();
 	}
+	
+	
+	/**
+	 * Convenience function. Equivalent of calling add(Behaviour b) on behaviourManager.
+	 */
+	protected void addBehaviour(Behaviour behaviour) {
+		behaviour.setCreature(this);
+		behaviourManager.add(behaviour);
+	}
+	/**
+	 * Convenience function. Equivalent of calling remove(Behaviour b) on behaviourManager.
+	 */
+	protected void removeBehaviour(Behaviour behaviour) {
+		// behaviours is a map.
+		behaviourManager.remove(behaviour);
+	}
+	/**
+	 * Convenience function. Equivalent of calling hasBehaviour() on behaviourManager.
+	 */	
+	public boolean hasBehaviour(Class<? extends Behaviour> behaviour) {
+		return behaviourManager.hasBehaviour(behaviour);
+	}
+	
+	private void reInitialiseBehaviours() {
+		Map<Class<? extends Behaviour>, Behaviour> behaviours = getBehaviourManager().getBehaviours();
+		
+		for (Entry<Class<? extends Behaviour>, Behaviour> entry : getBehaviourManager().getBehaviours().entrySet()) {
+			Class<? extends Behaviour> behaviourClass = entry.getKey();
+			try {
+				Constructor<? extends Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
+				behaviours.put(entry.getKey(), behaviourConstructor.newInstance(this));
+			} catch (Exception ex) { ex.printStackTrace(); }
+		}
+	}
+	
 	
 	public Body getBody() {
 		return body;

@@ -38,23 +38,25 @@ public class CollisionBehaviour extends Behaviour {
 		aabbWorldSpace.upperBound.y = worldaabb.y;
 		
 //		drawBoundingBox();
-		
-		for(int i=0; i<creatures.size(); i++) {
-			Creature c2 = creatures.get(i);
-			if(creature == c2) continue; // if comparing same creature, continue with loop
-			Map<Class<? extends Behaviour>, Behaviour> c2Behaviours = c2.getBehaviourManager().getBehaviours();
-			
-			// Only if c2 has a collisionBehaviour
-			if(c2Behaviours.containsKey(CollisionBehaviour.class)) {
+	
+		/* loop creature with all other creatures and check for collision. */
+		/* note: pretty inefficient. O(n^2). */
+		for(Creature creatureToCompare : creatures) {
+			if(creature == creatureToCompare) continue; // if comparing same creature, continue with loop
+			// check if creature has this behaviour
+			if(creatureToCompare.hasBehaviour(this.getClass())) {
+				// if so, do collisionbehaviour check.
 				// get the collisionBehaviour of c2
-				CollisionBehaviour c2CollisionBehaviour = (CollisionBehaviour) c2Behaviours.get(CollisionBehaviour.class);
+				CollisionBehaviour creatureToCompareCollisionBehaviour = (CollisionBehaviour) creatureToCompare.getBehaviourManager().getBehaviours().get(CollisionBehaviour.class);
 				
 				// Now, check if bounding boxes collide
-				if(AABB.testOverlap(aabbWorldSpace, c2CollisionBehaviour.aabbWorldSpace)) {
+				if(AABB.testOverlap(aabbWorldSpace, creatureToCompareCollisionBehaviour.aabbWorldSpace)) {
 					boundingBoxCollided(); // c1 collided event
-					c2CollisionBehaviour.boundingBoxCollided(); // c2 collided event
+					creatureToCompareCollisionBehaviour.boundingBoxCollided(); // c2 collided event
 				}
+				
 			}
+			
 		}
 	}
 
@@ -69,7 +71,9 @@ public class CollisionBehaviour extends Behaviour {
 		p.pushStyle();
 		p.stroke(0, 100, 100);
 		p.noFill();
-		p.rect(aabbWorldSpace.lowerBound.x, aabbWorldSpace.upperBound.y, width, height);
+		float centreX = aabbWorldSpace.lowerBound.x + (aabbWorldSpace.upperBound.x - aabbWorldSpace.lowerBound.x)/2;
+		float centreY = aabbWorldSpace.lowerBound.y + (aabbWorldSpace.upperBound.y - aabbWorldSpace.lowerBound.y)/2;
+		p.rect(centreX, centreY, width, height);
 		p.popStyle();
 	}
 	
@@ -90,27 +94,7 @@ public class CollisionBehaviour extends Behaviour {
 	
 	@Override
 	protected void move() {
-		// TODO Auto-generated method stub
-
 	}
 
-
-	@Override
-	public void startMove() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stopMove() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void freeze() {
-		// TODO Auto-generated method stub
-
-	}
 
 }

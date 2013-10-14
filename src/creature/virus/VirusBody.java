@@ -21,7 +21,7 @@ public class VirusBody extends Body {
 
 	@Override
 	protected synchronized PShape createBody() {
-		PShape bodyPShape = CreatePShape.circle(0, 0, width/2, 10);
+		PShape bodyPShape = CreatePShape.circle(0, 0, width/2, 30);
 		bodyPShape.setStroke(0);
 		bodyPShape.setStrokeWeight(2);
 	    return bodyPShape;

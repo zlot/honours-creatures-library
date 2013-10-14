@@ -5,6 +5,10 @@ import processing.core.PShape;
 import processing.core.PVector;
 import loader.PClass;
 
+/**
+ * Helper class which can create body PShapes based off basic shapes.
+ * @author Mark C Mitchell
+ */
 public class CreatePShape extends PClass {
 
 	public static PShape rect(float x, float y, float width, float height) {

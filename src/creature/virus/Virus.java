@@ -17,16 +17,6 @@ public class Virus extends Creature {
 		  addBehaviours();
 	  }
 	  
-	  public void draw() {
-		  // TODO:: incorporate this up a step into Creature.
-		  p.pushMatrix();
-			p.translate(getPos().x, getPos().y);
-		  	p.rotate(-angle); // has to be -angle. Why? I don't know.
-			body.draw();
-			limbManager.draw();
-		  p.popMatrix();
-	  }
-	  
 	  protected void createParts() {
 		  int w = (int) p.random(70, 130);
 		  body = new VirusBody(this, pos, w, w);
@@ -35,7 +25,8 @@ public class Virus extends Creature {
 	  }
 	  
 	  protected void addBehaviours() {
-		  addBehaviour(new PBox2DBehaviour(this));
+//		  addBehaviour(new PBox2DBehaviour(this));
+//		  addBehaviour(new CollisionBehaviour(this));
 	  }
 	  
 	}

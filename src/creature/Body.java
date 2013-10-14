@@ -13,23 +13,26 @@ public abstract class Body extends Part {
 	// can't modify a PVector v = bodyPShape.getVertex(i) for example.
 	// This looks like it must just make a copy! not a direct pointer to the vertex INSIDE bodyPShape.
 	protected PShape bodyPShape;
+	
 	// We are using an ArrayList to keep a duplicate copy
 	// of vertices original locations.
+	// this gives creatures a chance to set their own vertice points for where limbs could be attached.
 	protected ArrayList<PVector> vertices = new ArrayList<PVector>();
-	
-	AABB aabb; // aabb for body. needs: farthest top, right, bottom, left values. how to get these?
+
+	AABB aabb; // axis-aligned bounding-box for body. needs: farthest top, right, bottom, left values.
 	
 	public Body(Creature _creature, PVector _pos, float _width, float _height) {
 		super(_creature, _pos);
 		width = _width;
 		height = _height;
-		setAABB(_width, _height);
 		
 		setBodyPShape(createBody());
 		
 		assert(bodyPShape != null) : "You have not correctly initialised and returned "
 				+ "a bodyPShape in createBody()! To create a simple shape, e.g. an ellipse, use "
 				+ "the static methods in the CreatePShape class.";
+		
+		setAABB(width, height);
 		
 		if(vertices.isEmpty()) {
 			// fill vertices with bodyPShape vertices.
@@ -52,6 +55,16 @@ public abstract class Body extends Part {
 		// Optional Override.
 	}
 	
+	
+	/**
+	 * Set axis-aligned bounding-box. 
+	 */
+	public void setAABB(float width, float height) {
+		PVector lowerVertex = new PVector(-width/2, height/2);
+		PVector upperVertex = new PVector(width/2, -height/2);
+		aabb = new AABB(lowerVertex, upperVertex);
+	}	
+	
 ////////////////////////////////
 //////////////////////////////
 	//////////////////////////
@@ -72,7 +85,7 @@ public abstract class Body extends Part {
 //////////////////////////////
 //////////////////////////////
 //////////////////////////
-////////////// TEMP ONLY. testing with setSCale!(see above)	
+////////////// TEMP ONLY. testing with setScale!(see above)	
 	
 	public void setWidth(float _width) {
 		width = _width;
@@ -82,12 +95,6 @@ public abstract class Body extends Part {
 	public void setHeight(float _height) {
 		height = _height;
 	}
-	public void setAABB(float width, float height) {
-		PVector lowerVertex = new PVector(-width/2, height/2);
-		PVector upperVertex = new PVector(width/2, -height/2);
-		aabb = new AABB(lowerVertex, upperVertex);
-	}
-	
 	protected abstract PShape createBody();
 	
 	public PShape getBodyPShape() {
@@ -125,6 +132,5 @@ public abstract class Body extends Part {
 	}
 	public AABB getAABB() {
 		return aabb;
-	}
-	
+	}	
 }

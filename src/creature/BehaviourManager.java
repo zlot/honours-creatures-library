@@ -26,4 +26,11 @@ public class BehaviourManager extends PClass {
 	public Map<Class<? extends Behaviour>, Behaviour> getBehaviours() {
 		return behaviours;
 	}
+	
+	/**
+	 * returns true if creature has this behaviour.
+	 */
+	public boolean hasBehaviour(Class<? extends Behaviour> behaviour) {
+		return behaviours.containsKey(behaviour);
+	}
 }

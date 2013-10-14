@@ -80,8 +80,6 @@ public class HuntBehaviour extends Behaviour {
 		
 		move();
 		
-		
-		
 
 	}
 
@@ -116,23 +114,5 @@ public class HuntBehaviour extends Behaviour {
 	    pos.y = p.constrain(pos.y, 0, getScreenHeight());
 	}
 
-
-	@Override
-	public void startMove() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stopMove() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void freeze() {
-		// TODO Auto-generated method stub
-
-	}
 
 }

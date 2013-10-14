@@ -25,6 +25,10 @@ public abstract class LimbManager extends PClass {
 			}
 		}
 	}	
+	
+	/**
+	 * OPTIONAL: override this in LimbManager implementation if limbs require logic for updating.
+	 */
 	public void update() {
 		// optional override
 	};

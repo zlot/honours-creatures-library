@@ -27,25 +27,6 @@ public class WrapAroundBehaviour extends Behaviour {
 
 	@Override
 	protected void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void startMove() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void stopMove() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void freeze() {
-		// TODO Auto-generated method stub
 
 	}
 

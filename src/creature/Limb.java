@@ -3,7 +3,7 @@ package creature;
 import processing.core.PVector;
 
 public abstract class Limb extends Part {
-	protected float angle; // angle on body. ALREADY IN RADIANS.
+	protected float angle; // angle on body. already in radians. 0 is facing east.
 	
 	protected float width;
 	protected float height;

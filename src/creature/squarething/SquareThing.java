@@ -1,7 +1,9 @@
 package creature.squarething;
 
 import processing.core.PVector;
+import behaviour.CollisionBehaviour;
 import behaviour.PBox2DBehaviour;
+import behaviour.StayWithinWallsBehaviour;
 import main.World;
 import creature.Creature;
 
@@ -23,6 +25,8 @@ public class SquareThing extends Creature {
 	@Override
 	protected void addBehaviours() {
 		addBehaviour(new PBox2DBehaviour(this));
+//		addBehaviour(new CollisionBehaviour(this));
+//		addBehaviour(new StayWithinWallsBehaviour(this));
 	}
 
 }

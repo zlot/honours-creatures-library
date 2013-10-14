@@ -198,22 +198,6 @@ public class PBox2DBehaviour extends Behaviour {
 	}
 
 
-	@Override
-	public void startMove() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void stopMove() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void freeze() {
-		// TODO Auto-generated method stub
-	}
-
-	
 	private void addWorldBorders() {
 		// left boundary
 		new Boundary(World.getScreenWidth()-5, World.getScreenHeight()/2, 10, World.getScreenHeight());
