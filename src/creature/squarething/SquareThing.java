@@ -14,16 +14,6 @@ public class SquareThing extends Creature {
 	}
 
 	@Override
-	public void draw() {
-	 // TODO:: incorporate this up a step into Creature.
-	  p.pushMatrix();
-		p.translate(getPos().x, getPos().y);
-	  	p.rotate(-angle); // has to be -angle. Why? I don't know.
-		body.draw();
-	  p.popMatrix();
-	}
-
-	@Override
 	protected void createParts() {
 		float r = p.random(15, 45);
 		float r2 = p.random(15, 45);
@@ -32,7 +22,7 @@ public class SquareThing extends Creature {
 
 	@Override
 	protected void addBehaviours() {
-		addBehaviour(new PBox2DBehaviour(this, PBox2DBehaviour.CreatureShape.SQUARE));
+		addBehaviour(new PBox2DBehaviour(this));
 	}
 
 }

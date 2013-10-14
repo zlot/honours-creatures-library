@@ -1,8 +1,5 @@
 package behaviour;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import processing.core.PVector;
 import creature.*;
 import pbox2d.*;
@@ -21,20 +18,21 @@ public class PBox2DBehaviour extends Behaviour {
 
 	static private int box2dFrameCount; // used to make sure box2d is stepped through only once per frame.
 
-//	static {
-//		System.out.println("HHHH");
-//	}
-	
-	
 	/* Defines how box2d defines collision shape*/
 	public enum CreatureShape {SQUARE, CIRCLE};
 
 	private CreatureShape creatureShape;
 	
-	public PBox2DBehaviour(Creature _creature, CreatureShape _creatureShapeEnum) {
+	public PBox2DBehaviour(Creature _creature) {
 		super(_creature);
-		creatureShape = _creatureShapeEnum;
+		creatureShape = CreatureShape.SQUARE;
 		// create box2D world if not created already (lazy instantiation)
+		createBox2DWorld();
+		addToBox2dWorld();
+		box2dFrameCount = 1;
+	}
+	
+	private void createBox2DWorld() {
 		if(box2d == null) {
 			box2d = new PBox2D(p);
 			box2d.createWorld();
@@ -43,8 +41,6 @@ public class PBox2DBehaviour extends Behaviour {
 			box2d.setGravity(0, 0);
 			addWorldBorders();
 		}
-		addToBox2dWorld();
-		box2dFrameCount = 1;
 	}
 	
 	private void addToUpdate(Updateable o) {
@@ -78,7 +74,7 @@ public class PBox2DBehaviour extends Behaviour {
 	    // Parameters that affect physics
 	    fixtureDef.density = 1f;
 	    fixtureDef.friction = 0.3f;
-	    fixtureDef.restitution = 0.85f; // bounce off other objects
+	    fixtureDef.restitution = 0.82f; // bounce off other objects
 		
 	    // Attach shape to fixture
 	    fixtureDef.shape = shape;
@@ -88,8 +84,8 @@ public class PBox2DBehaviour extends Behaviour {
 	    
 	    body.resetMassData();
 	    
-	    body.setLinearVelocity(new Vec2(p.random(-10,10),p.random(4,6)));
-	    body.setAngularVelocity(p.random(-5,5));
+	    body.setLinearVelocity(new Vec2(p.random(-4,4),p.random(-4,4)));
+	    body.setAngularVelocity(p.random(-1,1));
 
 	    // add application-specific body data. Box2d body now knows the creature it is attached to.
 	    // can be retrieved by casting body.getUserData() to Creature.
@@ -97,8 +93,9 @@ public class PBox2DBehaviour extends Behaviour {
 	}
 	
 	private Shape defineSquareShape() {
-	    float box2dW = box2d.scalarPixelsToWorld(creature.getBody().getWidth()/2);
-	    float box2dH = box2d.scalarPixelsToWorld(creature.getBody().getHeight()/2);
+		// note: 2 seems rather arbitrary; can't really figure out why it cant just be full width/height.
+	    float box2dW = box2d.scalarPixelsToWorld((int)(creature.getBody().getWidth()/2));
+	    float box2dH = box2d.scalarPixelsToWorld((int)(creature.getBody().getHeight()/2));
 	    PolygonShape polygonShape = new PolygonShape();
 	    polygonShape.setAsBox(box2dW, box2dH);
 	    return polygonShape;
@@ -113,18 +110,13 @@ public class PBox2DBehaviour extends Behaviour {
 	@Override
 	public void update() {
 		// We must always step through time!
-		if(p.frameCount == box2dFrameCount) {
+//		if(p.frameCount == box2dFrameCount) {
 			box2dFrameCount++;
 			box2d.step();
-		}
+//		}
 		move();
 		
 		updateUpdateables();
-		
-//		for(Updateable o : updateList) {
-//			o.update();
-//			o.draw();
-//		}
 		
 		// returns head of the world body list (as a body).
 		// use Body.getNext() to get the next body in the world list.
@@ -170,7 +162,7 @@ public class PBox2DBehaviour extends Behaviour {
 		collisionBehaviourForCreature.collisionAction();
 	}
 	private void collisionAction() {
-		creature.getBody().setColor(0xFFBB0000); // hexadecimal colour: 0x[alpha][red][green][blue]
+		creature.getBody().setFillColor(0xFFBB0000); // hexadecimal colour: 0x[alpha][red][green][blue]
 	}
 	
 	static public void endContact(Contact c) {
@@ -185,8 +177,8 @@ public class PBox2DBehaviour extends Behaviour {
 		  Creature c2 = (Creature) b2.getUserData();
 		  
 		  if(c1 instanceof Creature && c2 instanceof Creature) {
-				c1.getBody().setColor(0xFF007744); // hexadecimal colour: 0x[alpha][red][green][blue]
-				c2.getBody().setColor(0xFF007744); // hexadecimal colour: 0x[alpha][red][green][blue]
+				c1.getBody().setFillColor(0xFF007744); // hexadecimal colour: 0x[alpha][red][green][blue]
+				c2.getBody().setFillColor(0xFF007744); // hexadecimal colour: 0x[alpha][red][green][blue]
 		  } else {
 			  // else, it could be a collision between creature and boundary; do nothing for now.
 		  }
@@ -198,9 +190,11 @@ public class PBox2DBehaviour extends Behaviour {
 		// here we place the position from the physics engine, back to the pos of the creature.
 		Vec2 physicsPos = box2d.getBodyPixelCoord(this.body);
 		float a = body.getAngle(); // already in radians it seems
-		creature.setAngle(a);
-		creature.getBody().getPos().x = physicsPos.x;
-		creature.getBody().getPos().y = physicsPos.y;
+//		PVector vel = new PVector(body.getLinearVelocity().x, body.getLinearVelocity().y);
+//		creature.setVelocity(vel);
+		creature.setAngle(-a);
+		
+		creature.setPos(new PVector(physicsPos.x, physicsPos.y));
 	}
 
 

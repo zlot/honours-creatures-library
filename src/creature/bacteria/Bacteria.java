@@ -35,7 +35,7 @@ public class Bacteria extends Creature {
 
 	@Override
 	protected void addBehaviours() {
-		addBehaviour(new MoveBehaviourWithAng(this));
+//		addBehaviour(new MoveBehaviourWithAng(this));
 	}
 
 }

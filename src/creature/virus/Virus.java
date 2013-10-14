@@ -12,7 +12,7 @@ public class Virus extends Creature {
 	  
 	  public Virus() {
 		  super(); // creates behaviourManager
-		  pos = new PVector(p.random(getScreenWidth()), p.random(getScreenHeight()));
+		  setPos(new PVector(p.random(getScreenWidth()), p.random(getScreenHeight())));
 		  createParts();
 		  addBehaviours();
 	  }
@@ -30,14 +30,12 @@ public class Virus extends Creature {
 	  protected void createParts() {
 		  int w = (int) p.random(70, 130);
 		  body = new VirusBody(this, pos, w, w);
-//		  body = new MillipedeBody(this, pos, w, w);
 		  
 		  limbManager = new TentacleManager(this); // w/2 is radius
 	  }
 	  
 	  protected void addBehaviours() {
-//		  addBehaviour(new MoveBehaviour(this));
-		  addBehaviour(new PBox2DBehaviour(this, PBox2DBehaviour.CreatureShape.CIRCLE));
+		  addBehaviour(new PBox2DBehaviour(this));
 	  }
 	  
 	}
