@@ -20,7 +20,7 @@ public abstract class Behaviour extends PClass {
 	protected Creature creature; // reference to creature instance
 	private List<Updateable> updateables = new ArrayList<Updateable>();
 	
-
+	
 	// behaviour should register existence to BehaviourDirector.
 	// observer pattern. BehaviourDirector controlls this.
 	// but maybe we need a mediator or proxy here? A BehaviourManager?
@@ -40,6 +40,9 @@ public abstract class Behaviour extends PClass {
 		return updateables;
 	}
 	
+	public void setCreature(Creature _creature) {
+		creature = _creature;
+	}
 	
 	public abstract void update();
 	

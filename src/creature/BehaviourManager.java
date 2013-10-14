@@ -19,6 +19,9 @@ public class BehaviourManager extends PClass {
 	public void add(Behaviour b) {
 		behaviours.put(b.getClass(), b);
 	}
+	public void remove(Behaviour b) {
+		behaviours.remove(b.getClass());
+	}
 	
 	public Map<Class<? extends Behaviour>, Behaviour> getBehaviours() {
 		return behaviours;

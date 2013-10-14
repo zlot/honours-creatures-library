@@ -1,29 +1,29 @@
 package creature.trianglething;
 
+import behaviour.PBox2DBehaviour;
+import processing.core.PVector;
 import creature.Creature;
+import creature.bacteria.FeelerManager;
 
 public class TriangleThing extends Creature {
 
 	public TriangleThing() {
-		// TODO Auto-generated constructor stub
+		super();
+		setPos(new PVector(p.random(getScreenWidth()), p.random(getScreenHeight())));
+		createParts();
+		addBehaviours();
 	}
-
-	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	@Override
 	protected void createParts() {
-		// TODO Auto-generated method stub
-
+		float randomWidthAndHeight = p.random(20, 40);
+		body = new TriangleThingBody(this, new PVector(p.width/2, p.height/2), randomWidthAndHeight, randomWidthAndHeight);
+		limbManager = new FeelerManager(this); // w/2 is radius
 	}
 
 	@Override
 	protected void addBehaviours() {
-		// TODO Auto-generated method stub
-		
+		addBehaviour(new PBox2DBehaviour(this));
 	}
 
 }

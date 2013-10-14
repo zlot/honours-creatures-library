@@ -6,39 +6,22 @@ import processing.core.*;
 import loader.PClass;
 import main.World;
 
-@SuppressWarnings("static-access")
-public class MoveBehaviourWithAng extends Behaviour {
+public class MoveBehaviourRandom extends Behaviour {
 
 	float nOffset; // special offset to make virus movement unique.
-	
-	public MoveBehaviourWithAng(Creature  _creature) {
+
+	public MoveBehaviourRandom(Creature _creature) {
 		super(_creature);
-		nOffset = p.random(-100, 100);
 	}
-	
-	// annoying field just for noise
-	float noiseInc = 0;
-	float mmStep = 0.015f; // movement step
-	
-	public float ang2;
 	
 	// noise-walk the pos
 	public void move() {
 	    PVector pos = creature.getBody().getPos();
-		PVector acceleration = new PVector(0,0);
-	    
-	    float n = p.noise(noiseInc + nOffset);
-	    float nMapped = p.map(n, 0, 1, -mmStep, mmStep); // for x
-	    acceleration.x = nMapped;
-	    
-	    n = p.noise(noiseInc + nOffset + 13); // 13 is arbitrary to have it different to y
-	    nMapped = p.map(n, 0, 1, -mmStep, mmStep); // for y
-	    acceleration.y = nMapped;
-	    
-	    noiseInc += 0.002;
-
+		
+		PVector force = seek(new PVector(p.random(World.getScreenWidth()), p.random(World.getScreenHeight())));
+		
 	    // update() in Creature does the rest.
-	    creature.setAcceleration(acceleration);
+	    creature.addAcceleration(force);
 	    
 
 	    if(pos.x > World.getScreenWidthWithBuffer()) {
@@ -53,15 +36,28 @@ public class MoveBehaviourWithAng extends Behaviour {
 	      pos.y = World.getScreenHeightWithBuffer();
 	    }
 	    
-//	    p.println("acc.x: " + acc.x + " acc.y: " + acc.y);
-//	    p.println("vel.x: " + vel.x + " vel.y: " + vel.y);
-//	    p.println("pos.x: " + pos.x + " pos.y: " + pos.y);
     }
 
 	@Override
 	public void update() {
 		move();
 	}
+	
+	// Our seek steering force algorithm
+	private PVector seek(PVector target) {
+		float maxSpeed = 115;
+		float maxForce = 0.05f;
+		
+		// where it wants to go
+	    PVector desired = PVector.sub(target, creature.getBody().getPos());
+	    desired.normalize();
+	    desired.mult(maxSpeed);
+	    // steer towards this desired position, looking at the current velocity and applying force.
+	    PVector steer = PVector.sub(desired, creature.getVelocity());
+	    steer.limit(maxForce);
+	    return steer;
+	}
+
 
 
 	@Override

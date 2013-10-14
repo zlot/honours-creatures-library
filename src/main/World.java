@@ -4,8 +4,10 @@ import creature.*;
 import creature.virus.*;
 import creature.worm.Worm;
 import creature.bacteria.Bacteria;
+import creature.creeper.Creeper;
 import creature.millipede.Millipede;
 import creature.squarething.*;
+import creature.trianglething.TriangleThing;
 import loader.PClass;
 
 
@@ -39,14 +41,18 @@ public class World extends PClass {
 		
 		// need a creature factory maybe?
 		// because we need to create each creature AND MAKE SURE a behaviour is attached to its behaviourManager.
-		populationDirector.addCreatures(Virus.class, 1);
+//		populationDirector.addCreatures(Virus.class, 2);
 		
-//	 	populationDirector.addCreatures(SquareThing.class, 25);
+	 	populationDirector.addCreatures(SquareThing.class, 14);
 		
-	 	populationDirector.addCreatures(Millipede.class, 4);
+//	 	populationDirector.addCreatures(Millipede.class, 3);
 	 	
-	 	populationDirector.addCreatures(Bacteria.class, 1);
-//	 	populationDirector.addCreatures(Worm.class, 16);
+//	 	populationDirector.addCreatures(TriangleThing.class, 10);
+	 	
+//	 	populationDirector.addCreatures(Bacteria.class, 3);
+	 	populationDirector.addCreatures(Worm.class, 2);
+	 	
+//	 	populationDirector.addCreatures(Creeper.class, 7);
 	 	
 	}
 	
@@ -66,5 +72,5 @@ public class World extends PClass {
 		populationDirector.update();
 		
 	}
-
+	
 }
