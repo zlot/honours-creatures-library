@@ -90,38 +90,16 @@ public class FlowFieldBehaviour extends Behaviour {
 		}
 	}
 
-
-
 	
 	@Override
 	public void update() {
-		// create's accel looks to lookup
-		
 		// Implementing Reynolds' flow field following algorithm
 		// http://www.red3d.com/cwr/steer/FlowFollow.html
 	    // What is the vector at that spot in the flow field?
 	    PVector desired = getFlowField().lookup(creature.getPos());
-	    // Scale it up by maxspeed
-	    int maxspeed = 10;
-////////////////////////// TODO::
-	    ////////// maxspeed pushed up into Creature?
-	    desired.mult(maxspeed);
-	    // Steering is desired minus velocity
-	    PVector steer = PVector.sub(desired, creature.getVelocity());
-////////////////////////TODO::
-////////// maxforce pushed up into Creature?
-	    float maxforce = 0.17f;
-	    steer.limit(maxforce);  // Limit to maximum steering force
-////////////////////////TODO::
-//////////applyForce instead of addAcceleration in Creature?
-	    creature.addAcceleration(steer);
-
-////////////////////////TODO::
-//////////Maybe a whole load of this gets pushed into basic steering update in Creature?
-////////// or maybe up in Behaviour only. hmmm not sure.
-/////////// maybe everything gets pushed into "desired" in Creature. this might be close/better to
-	    // what ollie suggested with requests for movement.
-///////// eg autoupdate: steer(PVector desired) {... applyForce()}
+	    
+//	    creature.steerToTarget(desired);
+	    creature.moveToTarget(desired, 9, 0.09f);
     }
 	
 	

@@ -1,8 +1,11 @@
 package creature.virus;
 
 import behaviour.CollisionBehaviour;
+import behaviour.FlowFieldBehaviour;
+import behaviour.MoveWithNoiseBehaviour;
 import behaviour.PBox2DBehaviour;
-import behaviour.MoveBehaviour;
+import behaviour.StayWithinWallsBehaviour;
+import behaviour.WrapAroundBehaviour;
 import creature.*;
 import creature.millipede.MillipedeBody;
 import creature.squarething.SquareThingBody;
@@ -27,6 +30,9 @@ public class Virus extends Creature {
 	  protected void addBehaviours() {
 //		  addBehaviour(new PBox2DBehaviour(this));
 //		  addBehaviour(new CollisionBehaviour(this));
+//		  addBehaviour(new FlowFieldBehaviour(this));
+		  addBehaviour(new MoveWithNoiseBehaviour(this));
+		  addBehaviour(new StayWithinWallsBehaviour(this));
 	  }
 	  
 	}

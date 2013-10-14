@@ -190,8 +190,6 @@ public class PBox2DBehaviour extends Behaviour {
 		// here we place the position from the physics engine, back to the pos of the creature.
 		Vec2 physicsPos = box2d.getBodyPixelCoord(this.body);
 		float a = body.getAngle(); // already in radians it seems
-//		PVector vel = new PVector(body.getLinearVelocity().x, body.getLinearVelocity().y);
-//		creature.setVelocity(vel);
 		creature.setAngle(-a);
 		
 		creature.setPos(new PVector(physicsPos.x, physicsPos.y));

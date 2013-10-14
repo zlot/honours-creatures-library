@@ -15,46 +15,37 @@ public class StayWithinWallsBehaviour extends Behaviour {
 	@Override
 	public void update() {
 		// https://github.com/shiffman/The-Nature-of-Code-Examples/blob/master/Processing/chp6_agents/NOC_6_03_StayWithinWalls/Vehicle.pde
-		
-		//[offset-down] Make a desired vector that retains the y direction of
-		  // the vehicle but points the x direction directly away from
-		  // the window’s left edge.
-		
 	    PVector desired = null;
-	    
+
 	    PVector pos = creature.getPos();
 	    PVector velocity = creature.getVelocity();
 	    //// implement a maxspeed in creature? and maxforce?
-	    float maxspeed = 10;
-	    float maxforce = 1; // 0.01?
+	    float speed = 8;
 
+	    // if out of range on x axis, go in opposite direction at maximum speed.
+	    // and keep the y velocity the same.
 	    if (pos.x < World.getBuffer()) {
-	      desired = new PVector(maxspeed, velocity.y);
+	      desired = new PVector(speed, velocity.y);
 	    } 
 	    else if (pos.x > World.getScreenWidth() - World.getBuffer()) {
-	      desired = new PVector(-maxspeed, velocity.y);
+	      desired = new PVector(-speed, velocity.y);
 	    } 
-
+	    // if out of range on y axis, go in opposite direction at maximum speed.
+	    // and keep the x velocity the same.
 	    if (pos.y < World.getBuffer()) {
-	      desired = new PVector(velocity.x, maxspeed);
+	      desired = new PVector(velocity.x, speed);
 	    } 
 	    else if (pos.y > World.getScreenHeight() - World.getBuffer()) {
-	      desired = new PVector(velocity.x, -maxspeed);
+	      desired = new PVector(velocity.x, -speed);
 	    } 
-
+	    
 	    if (desired != null) {
-	      desired.normalize();
-	      desired.mult(maxspeed);
-	      PVector steer = PVector.sub(desired, velocity);
-	      steer.limit(maxforce);
-	      creature.addAcceleration(steer);
-//	      applyForce(steer);
+	    	creature.moveInDirection(desired);
 	    }
     }
 
 	@Override
 	protected void move() {
-		// TODO Auto-generated method stub
 
 	}
 

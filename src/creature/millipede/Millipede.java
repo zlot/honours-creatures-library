@@ -1,7 +1,6 @@
 package creature.millipede;
 
-import behaviour.MoveBehaviour;
-import behaviour.MoveBehaviourRandom;
+import behaviour.MoveWithNoiseBehaviour;
 import behaviour.MoveBehaviourWithAng;
 import behaviour.PBox2DBehaviour;
 import processing.core.PVector;
@@ -29,7 +28,7 @@ public class Millipede extends Creature {
 
 	@Override
 	protected void addBehaviours() {
-		addBehaviour(new MoveBehaviourRandom(this));
+		addBehaviour(new MoveWithNoiseBehaviour(this));
 //		addBehaviour(new PBox2DBehaviour(this));
 	}
 

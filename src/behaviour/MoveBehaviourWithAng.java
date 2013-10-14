@@ -39,19 +39,7 @@ public class MoveBehaviourWithAng extends Behaviour {
 
 	    // update() in Creature does the rest.
 	    creature.setAcceleration(acceleration);
-	    
 
-	    if(pos.x > World.getScreenWidthWithBuffer()) {
-	      pos.x = 0;
-	    } else if (pos.x < -World.getBuffer()) {
-	      pos.x = World.getScreenWidthWithBuffer();
-	    }
-	    
-	    if(pos.y > World.getScreenHeightWithBuffer()) {
-	      pos.y = 0;
-	    } else if (pos.y < -World.getBuffer()) {
-	      pos.y = World.getScreenHeightWithBuffer();
-	    }
 	    
 //	    p.println("acc.x: " + acc.x + " acc.y: " + acc.y);
 //	    p.println("vel.x: " + vel.x + " vel.y: " + vel.y);
