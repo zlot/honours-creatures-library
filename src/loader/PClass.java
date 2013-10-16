@@ -26,18 +26,34 @@ public abstract class PClass {
 		buffer = _screenEdgeBuffer;
 	}
 	
+	/**
+	 * @return screen/world width.
+	 */
 	public static int getScreenWidth() {
 		return width;
 	}
+	/**
+	 * @return screen/world height.
+	 */
 	public static int getScreenHeight() {
 		return height;
 	}
+	/**
+	 * @return width of world + screen buffer value: see getBuffer().
+	 */
 	public static float getScreenWidthWithBuffer() {
 		return width + buffer;
 	}
+	/**
+	 * @return width of world + screen buffer value: see getBuffer().
+	 */
 	public static float getScreenHeightWithBuffer() {
 		return height + buffer;
 	}
+	/**
+	 * @return screen buffer value: a uniform buffer value that can
+	 * 		   be used utilised for events at the edges of the screen.
+	 */
 	public static float getBuffer() {
 		return buffer;
 	}

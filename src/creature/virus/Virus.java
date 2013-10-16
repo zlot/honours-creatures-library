@@ -29,7 +29,6 @@ public class Virus extends Creature {
 	  
 	  protected void addBehaviours() {
 //		  addBehaviour(new PBox2DBehaviour(this));
-//		  addBehaviour(new CollisionBehaviour(this));
 //		  addBehaviour(new FlowFieldBehaviour(this));
 		  addBehaviour(new MoveWithNoiseBehaviour(this));
 		  addBehaviour(new StayWithinWallsBehaviour(this));

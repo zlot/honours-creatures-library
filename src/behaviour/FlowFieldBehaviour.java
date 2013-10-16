@@ -35,8 +35,8 @@ public class FlowFieldBehaviour extends Behaviour {
 		public FlowField() {
 			resolution = 20;
 			// Determine the number of columns and rows based on sketch's width and height
-			cols = World.getScreenWidth()/resolution;
-			rows = World.getScreenHeight()/resolution;
+			cols = getScreenWidth()/resolution;
+			rows = getScreenHeight()/resolution;
 			field = new PVector[cols][rows];
 			init();
 		}
@@ -99,7 +99,9 @@ public class FlowFieldBehaviour extends Behaviour {
 	    PVector desired = getFlowField().lookup(creature.getPos());
 	    
 //	    creature.steerToTarget(desired);
-	    creature.moveToTarget(desired, 9, 0.09f);
+	    creature.moveInDirection(desired, 9, 0.09f);
+	    
+//	    getFlowField().display();
     }
 	
 	

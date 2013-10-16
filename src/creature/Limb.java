@@ -12,6 +12,7 @@ public abstract class Limb extends Part {
 		super(_creature, _pos);
 	}
 	
+	
 	@Override
 	public abstract void draw();
 	
@@ -30,5 +31,9 @@ public abstract class Limb extends Part {
     public float getHeight() {
     	return height;
     }
+
+	public void setPos(PVector _pos) {
+		pos = _pos;
+	}
 
 }

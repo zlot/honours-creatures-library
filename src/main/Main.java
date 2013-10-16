@@ -23,13 +23,13 @@ public class Main extends PApplet {
 	private static void initGUIElements() {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
-		final JComboBox_Example jComboBox_Example = new JComboBox_Example();
-		
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	jComboBox_Example.createAndShowGUI();
-            }
-        });
+//		final JComboBox_Example jComboBox_Example = new JComboBox_Example();
+//		
+//        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//            	jComboBox_Example.createAndShowGUI();
+//            }
+//        });
 	}
 	
 	

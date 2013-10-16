@@ -21,6 +21,10 @@ public abstract class Part extends PClass {
 		return pos;
 	}
 	
+	public int getColor() {
+		return color;
+	}
+	
 	public void setFillColor(int color) {
 		this.color = color;
 	};

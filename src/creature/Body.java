@@ -69,52 +69,35 @@ public abstract class Body extends Part {
 //////////////////////////////
 	//////////////////////////
 	////////////// TEMP ONLY. testing with scale!
-	float setScale;
-	
-	public void setScale(float newScaleValue) {
-		if(setScale == newScaleValue)
-			return;
-		bodyPShape.scale(newScaleValue);
-		setScale = newScaleValue;
-	}
-	
-	public void setScale(float scaleXValue, float scaleYValue) {
-		bodyPShape.scale(scaleXValue, scaleYValue);
-	}
+//	float setScale;
+//	
+//	public void setScale(float newScaleValue) {
+//		if(setScale == newScaleValue)
+//			return;
+//		bodyPShape.scale(newScaleValue);
+//		setScale = newScaleValue;
+//	}
+//	
+//	public void setScale(float scaleXValue, float scaleYValue) {
+//		bodyPShape.scale(scaleXValue, scaleYValue);
+//	}
 	
 //////////////////////////////
 //////////////////////////////
 //////////////////////////
 ////////////// TEMP ONLY. testing with setScale!(see above)	
 	
-	public void setWidth(float _width) {
-		width = _width;
-		// re-create bodyPShape?
-		createBody();
-	}
+//	public void setWidth(float _width) {
+//		width = _width;
+//		// re-create bodyPShape?
+//		createBody();
+//	}
+	
+	
+	
 	public void setHeight(float _height) {
 		height = _height;
 	}
-	protected abstract PShape createBody();
-	
-	public PShape getBodyPShape() {
-		return bodyPShape;
-	}
-	private void setBodyPShape(PShape _bodyPShape) {
-		bodyPShape = _bodyPShape;
-	}
-	
-	public void setFillColor(int color) {
-		super.setFillColor(color);
-		bodyPShape.setFill(color);
-	}
-	public void setStrokeColor(int color) {
-		bodyPShape.setStroke(color);
-	};
-	public int getStrokeColor() {
-		return bodyPShape.getStroke(0);
-	}
-	
 	public ArrayList<PVector> getVertices() {
 		if(vertices.isEmpty()) {
 			for(int i=0;i<bodyPShape.getVertexCount();i++) {
@@ -133,4 +116,28 @@ public abstract class Body extends Part {
 	public AABB getAABB() {
 		return aabb;
 	}	
+	protected abstract PShape createBody();
+	
+	public PShape getBodyPShape() {
+		return bodyPShape;
+	}
+	public int getStrokeColor() {
+		return bodyPShape.getStroke(0);
+	}
+	private void setBodyPShape(PShape _bodyPShape) {
+		bodyPShape = _bodyPShape;
+	}
+	
+	public void setStrokeWeight(float strokeWeight) {
+		bodyPShape.setStrokeWeight(strokeWeight);
+	}
+	
+	public void setFillColor(int color) {
+		super.setFillColor(color);
+		bodyPShape.setFill(color);
+	}
+	public void setStrokeColor(int color) {
+		bodyPShape.setStroke(color);
+	};
+	
 }

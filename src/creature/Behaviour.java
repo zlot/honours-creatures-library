@@ -15,9 +15,30 @@ public abstract class Behaviour extends PClass {
 	protected Creature creature; // reference to creature instance
 	private List<Updateable> updateables = new ArrayList<Updateable>();
 	
+	public Behaviour() {
+////////////////// TEMP ONLY		
+	}
+	
 	public Behaviour(Creature _creature) {
 		creature = _creature;
 	}
+	
+	/**
+	 * Called by population director every frame.
+	 */
+	public abstract void update();
+	
+	/**
+	 * Should be called by update(). This is a way of separating logic update
+	 * code from movement code, to make the behaviour easier to understand.
+	 * Note, your particular behaviour may not have update() and move() so easily separated. 
+	 */
+	protected abstract void move();
+	
+	
+	
+	
+	
 	
 	// TODO:: ??
 	public void updateUpdateables() {
@@ -35,14 +56,5 @@ public abstract class Behaviour extends PClass {
 		creature = _creature;
 	}
 	
-	public abstract void update();
-	
-	
-	/**
-	 * Should be called by update(). This is a way of separating logic update
-	 * code from movement code, to make the behaviour easier to understand.
-	 * Note, your particular behaviour may not have update() and move() so easily separated 
-	 */
-	protected abstract void move();
 
 }

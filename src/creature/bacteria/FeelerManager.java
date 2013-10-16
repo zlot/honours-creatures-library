@@ -2,7 +2,7 @@ package creature.bacteria;
 
 import java.util.ArrayList;
 
-import behaviour.MoveBehaviourWithAng;
+import processing.core.PConstants;
 import processing.core.PShape;
 import processing.core.PVector;
 import toxi.math.waves.*;
@@ -51,49 +51,48 @@ public class FeelerManager extends LimbManager {
 	@Override
 	public void createLimbs() {
 		float width = creature.getBody().getWidth();
-		float height = creature.getBody().getHeight();
 		
 		float feelerWidth = width * 0.18f;
 		
-		for(int i=0; i<creature.getBody().getBodyPShape().getVertexCount(); i++) {
-			// get vertex.
-			PVector v = new PVector(creature.getBody().getBodyPShape().getVertexX(i),
-					creature.getBody().getBodyPShape().getVertexY(i));
-			// use PVector as location of limb.
-			// angle. Um. 
-			float angleInRadians = v.heading();
-			
-			Limb feeler = new Feeler(creature, new PVector(v.x, v.y), feelerWidth, angleInRadians);
-			
-			// TODO: have to find a way to make this a FORCED thing.
-			limbs.add(feeler);
-		}
+		
+		////////// PLACING LIMBS ON GROUPS NOT WORKING YET :(
+		
+//		if(creature.getBody().getBodyPShape().getFamily() == PConstants.GROUP) {
+//			int numOfChildren = creature.getBody().getBodyPShape().getChildCount();
+//			
+//			for(int i=0; i<numOfChildren; i++) {
+//				PShape childPShape = creature.getBody().getBodyPShape().getChild(i);
+//				for(int j=0; i<childPShape.getVertexCount(); j++) {
+//					// get vertex.
+//					PVector v = new PVector(childPShape.getVertexX(j), childPShape.getVertexY(j));
+//					// use PVector as location of limb.
+//					float angleInRadians = v.heading();
+//					
+//					Limb feeler = new Feeler(creature, new PVector(v.x, v.y), feelerWidth, angleInRadians);
+//					
+//					// TODO: have to find a way to make this a FORCED thing.
+//					limbs.add(feeler);
+//				}
+//			}
+//			
+//		} else {
+			for(int i=0; i<creature.getBody().getBodyPShape().getVertexCount(); i++) {
+				// get vertex.
+				PVector v = new PVector(creature.getBody().getBodyPShape().getVertexX(i),
+						creature.getBody().getBodyPShape().getVertexY(i));
+				// use PVector as location of limb.
+				float angleInRadians = v.heading();
+				
+				Limb feeler = new Feeler(creature, new PVector(v.x, v.y), feelerWidth, angleInRadians);
+				
+				// TODO: have to find a way to make this a FORCED thing.
+				limbs.add(feeler);
+			}
+//		}		
+		
+		
+		
 		
 	}
-
 	
-	public void createLimbsWORKINGBUTOLD() {
-		float width = creature.getBody().getWidth();
-		float height = creature.getBody().getHeight();
-		
-		float feelerWidth = width * 0.18f;
-		
-		// note: this gets the static vertices. If they update during draw loop, these vertices are not updated.
-		ArrayList<PVector> bodyVertices = creature.getBody().getVertices();
-		
-		for(int i=0; i<bodyVertices.size(); i++) {
-			// get vertex.
-			PVector v = bodyVertices.get(i);
-			// use PVector as location of limb.
-			// angle. Um. 
-			float angleInRadians = v.heading();
-			
-			Limb feeler = new Feeler(creature, new PVector(v.x, v.y), feelerWidth, angleInRadians);
-			
-			// TODO: have to find a way to make this a FORCED thing.
-			limbs.add(feeler);
-		}
-		
-	}
-
 }

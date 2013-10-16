@@ -27,7 +27,7 @@ public class StayWithinWallsBehaviour extends Behaviour {
 	    if (pos.x < World.getBuffer()) {
 	      desired = new PVector(speed, velocity.y);
 	    } 
-	    else if (pos.x > World.getScreenWidth() - World.getBuffer()) {
+	    else if (pos.x > getScreenWidth() - getBuffer()) {
 	      desired = new PVector(-speed, velocity.y);
 	    } 
 	    // if out of range on y axis, go in opposite direction at maximum speed.
@@ -35,7 +35,7 @@ public class StayWithinWallsBehaviour extends Behaviour {
 	    if (pos.y < World.getBuffer()) {
 	      desired = new PVector(velocity.x, speed);
 	    } 
-	    else if (pos.y > World.getScreenHeight() - World.getBuffer()) {
+	    else if (pos.y > getScreenHeight() - getBuffer()) {
 	      desired = new PVector(velocity.x, -speed);
 	    } 
 	    

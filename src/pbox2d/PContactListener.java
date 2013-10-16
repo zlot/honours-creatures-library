@@ -21,30 +21,31 @@ public class PContactListener implements ContactListener {
 	PContactListener(PApplet p){
 		parent = p;
 		
-		try {
-			beginMethod = parent.getClass().getMethod("beginContact", new Class[] { Contact.class });
-        } catch (Exception e) {
-            System.out.println("You are missing the beginContact() method. " + e);
-        }
-
-		try {
-			endMethod = parent.getClass().getMethod("endContact", new Class[] { Contact.class });
-        } catch (Exception e) {
-            System.out.println("You are missing the endContact() method. " + e);
-        }
-		try {
-			postMethod = parent.getClass().getMethod("postSolve", new Class[] { Contact.class, ContactImpulse.class });
-        } catch (Exception e) {
-            //System.out.println("You are missing the postSolve() method. " + e);
-        }
-		try {
-			preMethod = parent.getClass().getMethod("preSolve", new Class[] { Contact.class, Manifold.class });
-        } catch (Exception e) {
-            //System.out.println("You are missing the preSolve() method. " + e);
-        }
+		// unnecessary for now; individual creatures can't set their own begin/endContact (I think
+		// this is how this works? 
+		
+//		try {
+//			beginMethod = parent.getClass().getMethod("beginContact", new Class[] { Contact.class });
+//        } catch (Exception e) {
+//            System.out.println("You are missing the beginContact() method. " + e);
+//        }
+//
+//		try {
+//			endMethod = parent.getClass().getMethod("endContact", new Class[] { Contact.class });
+//        } catch (Exception e) {
+//            System.out.println("You are missing the endContact() method. " + e);
+//        }
+//		try {
+//			postMethod = parent.getClass().getMethod("postSolve", new Class[] { Contact.class, ContactImpulse.class });
+//        } catch (Exception e) {
+//            //System.out.println("You are missing the postSolve() method. " + e);
+//        }
+//		try {
+//			preMethod = parent.getClass().getMethod("preSolve", new Class[] { Contact.class, Manifold.class });
+//        } catch (Exception e) {
+//            //System.out.println("You are missing the preSolve() method. " + e);
+//        }
 	}
-
-
 
 
 

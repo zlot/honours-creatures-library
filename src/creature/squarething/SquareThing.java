@@ -10,7 +10,7 @@ import creature.Creature;
 public class SquareThing extends Creature {
 
 	public SquareThing() {
-		pos = new PVector(p.random(World.getScreenWidth()), p.random(World.getScreenHeight()));
+		pos = new PVector(p.random(getScreenWidth()), p.random(getScreenHeight()));
 		createParts();
 		addBehaviours();
 	}

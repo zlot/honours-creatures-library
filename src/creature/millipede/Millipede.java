@@ -1,7 +1,6 @@
 package creature.millipede;
 
 import behaviour.MoveWithNoiseBehaviour;
-import behaviour.MoveBehaviourWithAng;
 import behaviour.PBox2DBehaviour;
 import processing.core.PVector;
 import creature.Creature;

@@ -1,6 +1,7 @@
 package creature.bacteria;
 
-import behaviour.MoveBehaviourWithAng;
+import behaviour.MoveWithNoiseBehaviour;
+import behaviour.WrapAroundBehaviour;
 import processing.core.PVector;
 import creature.Creature;
 
@@ -35,7 +36,8 @@ public class Bacteria extends Creature {
 
 	@Override
 	protected void addBehaviours() {
-//		addBehaviour(new MoveBehaviourWithAng(this));
+		addBehaviour(new MoveWithNoiseBehaviour(this));
+		addBehaviour(new WrapAroundBehaviour(this));
 	}
 
 }

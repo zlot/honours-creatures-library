@@ -155,7 +155,8 @@ public class PBox2DBehaviour extends Behaviour {
 	  } else {
 		  // else, it could be a collision between creature and boundary; do nothing for now.
 	  }
-	}	
+	}
+	
 	
 	static private void collisionAction(Creature c) {
 		PBox2DBehaviour collisionBehaviourForCreature = (PBox2DBehaviour) c.getBehaviourManager().getBehaviours().get(PBox2DBehaviour.class);
@@ -198,13 +199,13 @@ public class PBox2DBehaviour extends Behaviour {
 
 	private void addWorldBorders() {
 		// left boundary
-		new Boundary(World.getScreenWidth()-5, World.getScreenHeight()/2, 10, World.getScreenHeight());
+		new Boundary(getScreenWidth()-5, getScreenHeight()/2, 10, World.getScreenHeight());
 		// right boundary
-		new Boundary(5, World.getScreenHeight()/2, 10, World.getScreenHeight());
+		new Boundary(5, getScreenHeight()/2, 10, getScreenHeight());
 		// top boundary
-		new Boundary(World.getScreenWidth()/2, 5, World.getScreenWidth(), 10);
+		new Boundary(getScreenWidth()/2, 5, getScreenWidth(), 10);
 		// bottom boundary
-		new Boundary(World.getScreenWidth()/2, World.getScreenHeight()-5, World.getScreenWidth(), 10);
+		new Boundary(getScreenWidth()/2, getScreenHeight()-5, World.getScreenWidth(), 10);
 	}
 	
 	class Boundary implements Updateable {

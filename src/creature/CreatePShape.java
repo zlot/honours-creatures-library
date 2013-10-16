@@ -28,13 +28,13 @@ public class CreatePShape extends PClass {
 	}
 	
 	/**
-	 * Creates a perfect circle PShape.
+	 * Creates a perfect circle PShape. Will create the circle with x,y as center.
 	 * 
 	 * @param x x position relative to origin(0,0).
 	 * @param y y position relative to origin(0,0).
 	 * @param radius radius of circle.
 	 * @param detail vertices per degree. In degrees.
-	 * @return
+	 * @return ready-to-use perfect circle PShape for body.
 	 */
 	public static PShape circle(float x, float y, float radius, float detailInDegrees) {
 		PShape bodyPShape = p.createShape();
@@ -52,6 +52,15 @@ public class CreatePShape extends PClass {
 	}
 
 	
+	/**
+	 * Creates an ellipse PShape. Will create an ellipse with x,y as center.
+	 * 
+	 * @param x x position relative to origin(0,0).
+	 * @param y y position relative to origin(0,0).
+	 * @param radius radius of circle.
+	 * @param detail vertices per degree. In degrees.
+	 * @return ready-to-use ellise PShape for body.
+	 */
 	public static PShape ellipse(float x, float y, float width, float height, float detailInDegrees) {
 		PShape bodyPShape = p.createShape();
 		bodyPShape.beginShape();
@@ -70,13 +79,13 @@ public class CreatePShape extends PClass {
 
 	
 	/**
-	 * Triangle facing right (0 degrees).
+	 * Triangle facing right (0 degrees). Triangle is created with x,y as center.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @return
+	 * @param x x position relative to origin(0,0).
+	 * @param y y position relative to origin(0,0).
+	 * @param width width of triangle.
+	 * @param height height of triangle.
+	 * @return ready-to-use triangle PShape for body.
 	 */
 	public static PShape triangle(float x, float y, float width, float height) {
 		PShape bodyPShape = p.createShape();

@@ -15,14 +15,14 @@ public class WrapAroundBehaviour extends Behaviour {
 	@Override
 	public void update() {
 		PVector pos = creature.getPos();
-	    if (pos.x < -World.getBuffer())
-	    	pos.x = World.getScreenWidthWithBuffer();
-	    if (pos.y < -World.getBuffer())
-	    	pos.y = World.getScreenHeightWithBuffer();
-	    if (pos.x > World.getScreenWidthWithBuffer())
+	    if (pos.x < - getBuffer())
+	    	pos.x = getScreenWidthWithBuffer();
+	    if (pos.y < - getBuffer())
+	    	pos.y = getScreenHeightWithBuffer();
+	    if (pos.x > getScreenWidthWithBuffer())
 	    	pos.x = -getBuffer();
-	    if (pos.y > World.getScreenHeightWithBuffer())
-	    	pos.y = -World.getBuffer();
+	    if (pos.y > getScreenHeightWithBuffer())
+	    	pos.y = -getBuffer();
     }
 
 	@Override

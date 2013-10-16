@@ -1,9 +1,10 @@
 package creature.worm;
 
-import behaviour.MoveBehaviourWithAng;
 import processing.core.PVector;
 import creature.Creature;
 import creature.bacteria.FeelerManager;
+import behaviour.FlowFieldBehaviour;
+import behaviour.WrapAroundBehaviour;
 
 public class Worm extends Creature {
 	
@@ -26,7 +27,8 @@ public class Worm extends Creature {
 
 	@Override
 	protected void addBehaviours() {
-		addBehaviour(new MoveBehaviourWithAng(this));
+		addBehaviour(new FlowFieldBehaviour(this));
+		addBehaviour(new WrapAroundBehaviour(this));
 	}
 
 }

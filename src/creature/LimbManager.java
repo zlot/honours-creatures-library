@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import processing.core.PVector;
+import creature.bacteria.Feeler;
 import loader.PClass;
 
 public abstract class LimbManager extends PClass {
@@ -33,6 +35,9 @@ public abstract class LimbManager extends PClass {
 		// optional override
 	};
 	
+	/**
+	 * Write in this method the logic to create and attach Limb's to your creature.
+	 */
 	public abstract void createLimbs();
 	
 	public void setCreature(Creature _c) {

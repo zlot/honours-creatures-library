@@ -1,6 +1,5 @@
 package creature.bacteria;
 
-import behaviour.MoveBehaviourWithAng;
 import processing.core.PVector;
 import creature.Creature;
 import creature.Limb;
@@ -9,9 +8,9 @@ import toxi.math.waves.*;
 public class Feeler extends Limb {
 
 	
-	public Feeler(Creature _creature, PVector _pos, float _width, float _angle) {
+	public Feeler(Creature _creature, PVector _pos, float feelerWidth, float _angle) {
 		super(_creature, _pos);
-		width = _width;
+		width = feelerWidth;
 		setFillColor(p.color(p.random(70),80,80, 95));
 		angle = _angle;
 	}

@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 import loader.PClass;
 
 public class PopulationDirector extends PClass {
 
 	private static PopulationDirector singleton = new PopulationDirector(); // thread-safe.
 	
-	public ArrayList<Creature> creatures; // List of all creatures in population.
+	private ArrayList<Creature> creatures; // List of all creatures in population.
 
 	private PopulationDirector() {
 		creatures = new ArrayList<Creature>();
@@ -59,7 +60,7 @@ public class PopulationDirector extends PClass {
 
 		/* Draw all creatures */
 		for(Creature creature : creatures) {
-//			c.update();
+//			creature.update();
 			creature.draw();
 		}
 	}
@@ -79,11 +80,45 @@ public class PopulationDirector extends PClass {
 		}
 		// for all of these found creatureClass, call setBody(body).
 		for(Creature c : creaturesOfTypeCreatureClass) {
+			
+			boolean constructedClassSuccessfully = false;
+			
 			try {
 				Class<Body> bodyClass = body;
-				Constructor<Body> bodyConstructor = bodyClass.getDeclaredConstructor(new Class[] {creature.Creature.class, processing.core.PVector.class, float.class, float.class});
-				Body bodyInstance = bodyConstructor.newInstance(c, c.getPos(), c.getBody().getWidth(), c.getBody().getHeight());
+				Constructor<Body> bodyConstructor = null;
+				Body bodyInstance = null;
+				
+				/***** A NOTE about getDeclaredConstructor()::: *****/
+				/*** Returns a Constructor object that reflects the specified public constructor of the class represented by this Class object.
+				 * The parameterTypes parameter is an array of Class objects that identify the constructor's formal parameter types, in declared order.
+				 * If this Class object represents an inner class declared in a non-static context, the formal parameter types include the explicit
+				 * enclosing instance as the first parameter.
+				 * Because all classes created in Processing are inner classes of PApplet, we must prepend a PApplet class to the Constructor.
+				 * AND also, when using Constructor.newInstance():
+				 * If the constructor's declaring class is an inner class in a non-static context,
+				 * -------> the first argument to the constructor needs to be the enclosing instance.
+				 * http://stackoverflow.com/questions/2097982/is-it-possible-to-create-an-instance-of-nested-class-using-java-reflection/2098082#2098082
+				 */
+				try {
+					bodyConstructor = bodyClass.getDeclaredConstructor(new Class[] {creature.Creature.class, PVector.class, float.class, float.class});
+					bodyInstance = bodyConstructor.newInstance(c, c.getPos(), c.getBody().getWidth(), c.getBody().getHeight());
+					constructedClassSuccessfully = true;
+				} catch(NoSuchMethodException ex) {
+					// Must be a user-created class inside Processing.. Try the next getDeclaredConstructor!
+				}
+				if(!constructedClassSuccessfully) {
+					try {
+					    Class<?> worldofcreaturesClass = bodyClass.getDeclaredConstructors()[0].getParameterTypes()[0];
+						bodyConstructor = bodyClass.getDeclaredConstructor(new Class[] {worldofcreaturesClass, creature.Creature.class, PVector.class, float.class, float.class});
+						bodyInstance = bodyConstructor.newInstance(p, c, c.getPos(), c.getBody().getWidth(), c.getBody().getHeight());
+						constructedClassSuccessfully = true;
+					} catch(NoSuchMethodException ex) {
+						// Somethings deffo wrong.
+					}
+				}
+				
 				c.setBody(bodyInstance);
+				
 			} catch (Exception ex) {ex.printStackTrace();}
 		}
 	}
@@ -120,7 +155,9 @@ public class PopulationDirector extends PClass {
 	/**
 	 * Utility function for TweakMode tool only. Not for your use!
 	 */
+	@SuppressWarnings("static-access")
 	public void addBehaviourForAllCreaturesOfClass(Class<Creature> creatureClass, Class<Behaviour> behaviour) {
+
 		ArrayList<Creature> creaturesOfTypeCreatureClass = new ArrayList<Creature>();
 		// iterate through creatures list: find all creatures of creatureClass.
 		for(Creature c : creatures) {
@@ -131,11 +168,40 @@ public class PopulationDirector extends PClass {
 		}
 		// for all of these found creatureClass, call addBehaviour(b).
 		for(Creature c : creaturesOfTypeCreatureClass) {
+			
+			boolean constructedClassSuccessfully = false;
+			
 			try {
+				
 				Class<Behaviour> behaviourClass = behaviour;
-				Constructor<Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
-				Behaviour behaviourInstance = behaviourConstructor.newInstance(c);
+				Behaviour behaviourInstance = null; 
+				
+				try {
+					Constructor<Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
+					
+					p.println("behaviourConstructor: " + behaviourConstructor);
+					
+					behaviourInstance = behaviourConstructor.newInstance(c);
+					constructedClassSuccessfully = true;
+				} catch(NoSuchMethodException ex) {
+				}
+				
+				if(!constructedClassSuccessfully) {
+					try {
+					    Class<?> worldofcreaturesClass = behaviourClass.getDeclaredConstructors()[0].getParameterTypes()[0];
+					    
+					    Constructor<Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {worldofcreaturesClass, creature.Creature.class});
+					
+						behaviourInstance = behaviourConstructor.newInstance(p, c);
+						
+						behaviourInstance.setCreature(c);
+						constructedClassSuccessfully = true;
+						
+					} catch(Exception ex) {
+					}
+				}
 				c.addBehaviour(behaviourInstance);
+				
 			} catch (Exception ex) {ex.printStackTrace();}
 		}	
 		
@@ -168,6 +234,10 @@ public class PopulationDirector extends PClass {
 			} catch (Exception ex) {ex.printStackTrace();}
 		}	
 		
+	}
+	
+	public ArrayList<Creature> getCreatures() {
+		return creatures;
 	}
 	
 	

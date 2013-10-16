@@ -18,10 +18,10 @@ public class MoveWithNoiseBehaviour extends Behaviour {
 	public void update() {
 		float noiseVal = p.noise(noiseInc);
 		
-		float x = PApplet.map(noiseVal, 0, 1, 0, World.getScreenWidth());
+		float x = PApplet.map(noiseVal, 0, 1, 0, getScreenWidth());
 		
 		noiseVal = p.noise(noiseInc + 100); // big offset so y is different. 
-		float y = PApplet.map(noiseVal, 0, 1, 0, World.getScreenHeight());
+		float y = PApplet.map(noiseVal, 0, 1, 0, getScreenHeight());
 		
 		noiseInc += 0.007;
 		

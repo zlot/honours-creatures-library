@@ -13,7 +13,7 @@ public class CollisionBehaviour extends Behaviour {
 	
 	AABB aabb; // ref to creatue body's aabb.
 	AABB aabbWorldSpace; // aabb translated to world space.
-	List<Creature> creatures = World.getPopulationDirector().creatures; // reference to list of all creatures in world.
+	List<Creature> creatures = World.getPopulationDirector().getCreatures(); // reference to list of all creatures in world.
 	
 	PVector pos;
 	

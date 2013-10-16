@@ -22,7 +22,7 @@ public class HuntBehaviour extends Behaviour {
 	// annoying field just for noise
 	float noiseInc = 0;
 	float mmStep = 0.5f; // movement step
-	List<Creature> creatures = World.getPopulationDirector().creatures; // reference to list of all creatures in world.
+	List<Creature> creatures = World.getPopulationDirector().getCreatures(); // reference to list of all creatures in world.
 
 	float range; // scalar value based on bounding box multiplication, how far from creature before it hunts.
 
