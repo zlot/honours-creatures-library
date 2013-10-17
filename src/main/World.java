@@ -71,7 +71,7 @@ public class World extends PClass {
 		// refresh background
 		p.fill(bgColor);
 		p.rect(width/2,height/2,width,height);
-		populationDirector.update();
+		populationDirector.internalUpdate();
 		
 	}
 	

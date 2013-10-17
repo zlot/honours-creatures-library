@@ -49,7 +49,13 @@ public class PopulationDirector extends PClass {
 		}
 	}
 	
+	
 	public void update() {
+		// optional override.
+	}
+	
+	
+	public void internalUpdate() {
 
 //////////////////// TODO::: can I push draw() into the one loop yet? Or will that still break stuff?		
 		
