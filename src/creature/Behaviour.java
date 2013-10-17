@@ -15,9 +15,6 @@ public abstract class Behaviour extends PClass {
 	protected Creature creature; // reference to creature instance
 	private List<Updateable> updateables = new ArrayList<Updateable>();
 	
-	public Behaviour() {
-////////////////// TEMP ONLY		
-	}
 	
 	public Behaviour(Creature _creature) {
 		creature = _creature;
@@ -37,10 +34,10 @@ public abstract class Behaviour extends PClass {
 	
 	
 	
-	
-	
-	
 	// TODO:: ??
+	/**
+	 * Note: not useful at the moment: don't worry about updateables. 
+	 */
 	public void updateUpdateables() {
 		for(Updateable o : updateables) {
 			o.update();

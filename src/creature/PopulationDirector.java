@@ -138,15 +138,47 @@ public class PopulationDirector extends PClass {
 		
 		// for all of these found creatureClass, call setLimbManager(limbManager).
 		for(Creature c : creaturesOfTypeCreatureClass) {
+			
+			boolean constructedClassSuccessfully = false;
+			
 			if(limbManager == null) {
 				LimbManager nullLimbManger = null;
 				c.setLimbManager(nullLimbManger);
 			} else {
+				
+				
 				try {
 					Class<LimbManager> limbManagerClass = limbManager;
-					Constructor<LimbManager> limbManagerConstructor = limbManagerClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
-					LimbManager limbManagerInstance = limbManagerConstructor.newInstance(c);
+					
+					Constructor<LimbManager> limbManagerConstructor = null;
+					LimbManager limbManagerInstance = null;
+					
+					
+					try {
+						limbManagerConstructor = limbManagerClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
+						limbManagerInstance = limbManagerConstructor.newInstance(c);
+						constructedClassSuccessfully = true;
+					} catch(NoSuchMethodException ex) {
+						// Must be a user-created class inside Processing.. Try the next getDeclaredConstructor!
+					}
+					if(!constructedClassSuccessfully) {
+						try {
+						    Class<?> worldofcreaturesClass = limbManagerClass.getDeclaredConstructors()[0].getParameterTypes()[0];
+						    limbManagerConstructor = limbManagerClass.getDeclaredConstructor(new Class[] {worldofcreaturesClass, creature.Creature.class});
+						    limbManagerInstance = limbManagerConstructor.newInstance(p, c);
+						    
+						    p.println(limbManagerInstance);
+							constructedClassSuccessfully = true;
+						} catch(Exception ex) {
+							// Somethings deffo wrong.
+							ex.printStackTrace();
+						}
+					}
+					
+					
 					c.setLimbManager(limbManagerInstance);
+					
+					
 				} catch (Exception ex) {ex.printStackTrace();}
 			}
 		}	
@@ -179,7 +211,6 @@ public class PopulationDirector extends PClass {
 				try {
 					Constructor<Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
 					
-					p.println("behaviourConstructor: " + behaviourConstructor);
 					
 					behaviourInstance = behaviourConstructor.newInstance(c);
 					constructedClassSuccessfully = true;
@@ -226,11 +257,40 @@ public class PopulationDirector extends PClass {
 		
 		// for all of these found creatureClass, call removeBehaviour(b).
 		for(Creature c : creaturesOfTypeCreatureClass) {
+			
+			boolean constructedClassSuccessfully = false;
+			
 			try {
+				
 				Class<Behaviour> behaviourClass = behaviour;
-				Constructor<Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
-				Behaviour behaviourInstance = behaviourConstructor.newInstance(c);
+				Behaviour behaviourInstance = null;           
+				
+				try {
+					Constructor<Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
+					
+					
+					behaviourInstance = behaviourConstructor.newInstance(c);
+					constructedClassSuccessfully = true;
+				} catch(NoSuchMethodException ex) {
+				}
+				
+				if(!constructedClassSuccessfully) {
+					try {
+					    Class<?> worldofcreaturesClass = behaviourClass.getDeclaredConstructors()[0].getParameterTypes()[0];
+					    
+					    Constructor<Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {worldofcreaturesClass, creature.Creature.class});
+					
+						behaviourInstance = behaviourConstructor.newInstance(p, c);
+						
+						behaviourInstance.setCreature(c);
+						constructedClassSuccessfully = true;
+						
+					} catch(Exception ex) {
+					}
+				}
+				
 				c.removeBehaviour(behaviourInstance);
+				
 			} catch (Exception ex) {ex.printStackTrace();}
 		}	
 		

@@ -91,7 +91,7 @@ public abstract class Creature extends PClass {
 	/***** MOVEMENT / FORCE METHODS *****/
 	
 	/**
-	 * Steers creature towards target.
+	 * Steers creature towards target. Target is NOT relative to creature; it is in the world space. For a target relative to the creature, see moveInDirection().
 	 * @param desiredTarget target in sketch coordinates.
 	 */
 	public void moveToTarget(PVector desiredTarget) {
@@ -103,7 +103,7 @@ public abstract class Creature extends PClass {
 	}
 	
 	/**
-	 * Steers creature towards target.
+	 * Steers creature towards target. Target is NOT relative to creature; it is in the world space. For a target relative to the creature, see moveInDirection().
 	 * Used by behaviours to set their own specific maxForce.
 	 * @param desiredTarget target in sketch coordinates.
 	 * @param behaviourMaxForce specific to behaviour.
@@ -111,7 +111,7 @@ public abstract class Creature extends PClass {
 	public void moveToTarget(PVector desiredTarget, float behaviourMaxForce) {
 		PVector desiredTargetLocalised = PVector.sub(desiredTarget, pos);
 		desiredTargetLocalised.normalize();
-		desiredTargetLocalised.mult(speed); // scale desiredTarget up by maxSpeed.
+		desiredTargetLocalised.mult(maxSpeed); // scale desiredTarget up by maxSpeed.
 		PVector steer = PVector.sub(desiredTargetLocalised, vel); // // Steering is desired minus velocity.
 		steer.limit(behaviourMaxForce); // determines how quick it can steer in direction of desiredTarget. 
 		addForce(steer);
@@ -135,11 +135,11 @@ public abstract class Creature extends PClass {
 
 	/**
 	 * Steers creature towards a direction, relative to the creature's position.
-	 * @param desiredDirection direction to move. Vector is normalised and multiplied by behaviourMaxSpeed.
+	 * @param desiredDirection direction to move. Vector is normalised.
 	 */
 	public void moveInDirection(PVector desiredDirection) {
 		desiredDirection.normalize();
-		desiredDirection.mult(speed); // scale desiredTarget up by maxSpeed.
+		desiredDirection.mult(maxSpeed); // scale desiredTarget up by maxSpeed.
 		PVector steer = PVector.sub(desiredDirection, vel); // // Steering is desired minus velocity.
 		steer.limit(maxForce); // determines how quick it can steer in direction of desiredTarget. 
 		addForce(steer);
@@ -153,7 +153,7 @@ public abstract class Creature extends PClass {
 	 */
 	public void moveInDirection(PVector desiredDirection, float behaviourMaxForce) {
 		desiredDirection.normalize();
-		desiredDirection.mult(speed); // scale desiredTarget up by maxSpeed.
+		desiredDirection.mult(maxSpeed); // scale desiredTarget up by maxSpeed.
 		PVector steer = PVector.sub(desiredDirection, vel); // // Steering is desired minus velocity.
 		steer.limit(behaviourMaxForce); // determines how quick it can steer in direction of desiredTarget. 
 		addForce(steer);
@@ -392,11 +392,29 @@ public abstract class Creature extends PClass {
 		Map<Class<? extends Behaviour>, Behaviour> behaviours = getBehaviourManager().getBehaviours();
 		
 		for (Entry<Class<? extends Behaviour>, Behaviour> entry : getBehaviourManager().getBehaviours().entrySet()) {
+			
+			boolean constructedClassSuccessfully = false;
 			Class<? extends Behaviour> behaviourClass = entry.getKey();
+			
+			
 			try {
 				Constructor<? extends Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {creature.Creature.class});
 				behaviours.put(entry.getKey(), behaviourConstructor.newInstance(this));
-			} catch (Exception ex) { ex.printStackTrace(); }
+				constructedClassSuccessfully = true;
+			} catch (Exception ex) { 
+				//ex.printStackTrace();
+			}
+			
+			if(!constructedClassSuccessfully) {
+				try {
+				    Class<?> worldofcreaturesClass = behaviourClass.getDeclaredConstructors()[0].getParameterTypes()[0];
+
+					Constructor<? extends Behaviour> behaviourConstructor = behaviourClass.getDeclaredConstructor(new Class[] {worldofcreaturesClass, creature.Creature.class});
+					behaviours.put(entry.getKey(), behaviourConstructor.newInstance(p, this));
+				} catch (Exception ex) {
+					//ex.printStackTrace();
+				}
+			}
 		}
 	}
 

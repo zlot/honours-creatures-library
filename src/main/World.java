@@ -27,7 +27,7 @@ public class World extends PClass {
 		PClass.insertPApplet(_pApplet);
 		width = _width; 
 		height = _height; 
-	    PClass.setWidthAndHeight(width, height, 150); // last arg is screen edge buffer value in pixels
+	    PClass.setWidthAndHeight(width, height, 80); // last arg is screen edge buffer value in pixels
 	    bgColor = p.color(12); // (240, 40, 40);
 		
 		addCreaturesToPopulation();
@@ -46,7 +46,7 @@ public class World extends PClass {
 	 	populationDirector.addCreatures(Millipede.class, 2);
 	 	
 	 	populationDirector.addCreatures(TriangleThing.class, 3);
-	 	populationDirector.addCreatures(Bacteria.class, 2);
+	 	populationDirector.addCreatures(Bacteria.class, 1);
 	 	populationDirector.addCreatures(Worm.class, 2);
 	 	populationDirector.addCreatures(Creeper.class, 2);
 //		try {
